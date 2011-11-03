@@ -1,0 +1,16 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+
+#map_canvas { 
+    width:960px;
+    height:500px
+}
+
+.sliders {
+    z-index: 10;
+}
+
+#cfs_slider_container, #maf_slider_container {
+    float:left;
+    width: 480px;
+}
