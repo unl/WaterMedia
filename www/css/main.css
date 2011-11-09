@@ -7,10 +7,26 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 .sliders {
-    z-index: 10;
+    text-align: center;
 }
 
-#cfs_slider_container, #maf_slider_container {
+#cfs_slider_container, #maf_slider_container, .slider_title {
     float:left;
-    width: 480px;
+    width: 450px;
+    padding-left: 20px;
+    padding-bottom: 3px;
+}
+
+.water_min {
+    float: left;
+}
+
+.water_max {
+    float: right;
+}
+
+.slider_title {
+    font-size: 15px;
+    font-weight:bold;
+    padding-top: 10px;
 }

@@ -51,7 +51,8 @@
     var infoBoxes = new Array();
     var mafIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
     var cfsIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
-
+    var maxMAF = 0;
+    var maxCFS = 0;
     
     WDN.jQuery(document).ready(function(){
         WDN.get('http://ucommfairchild.unl.edu/mediahub/www/channels/1?format=json', function(data){
@@ -72,6 +73,16 @@
                 
                 if (data['media'][url]['mediahub_water_maf'] == undefined) {
                     data['media'][url]['mediahub_water_maf'] = null;
+                }
+                
+                //set max cfs.
+                if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
+                    maxCFS = data['media'][url]['mediahub_water_cfs'];
+                }
+                
+                //set max maf.
+                if (data['media'][url]['mediahub_water_maf'] > maxMAF) {
+                    maxMAF = data['media'][url]['mediahub_water_maf'];
                 }
                 
                 locations[data['media'][url]['id']]          = new Array();
@@ -146,22 +157,31 @@
         setUpMarkers(map);
         
         $("#maf_slider").slider({
-            value:100,
+            value:0,
             min: 0,
-            max: 500,
+            max: maxMAF,
             slide: function( event, ui ) {
-                $("#maf_amount").html(ui.value );
+                $("#maf_amount").html(ui.value);
             }
         });
         
         $("#cfs_slider").slider({
-            value:100,
+            value:0,
             min: 0,
-            max: 500,
+            max: maxCFS,
             slide: function( event, ui ) {
-                $("#cfs_amount").html(ui.value );
+                $("#cfs_amount").html(ui.value);
             }
         });
+        
+        //Set min, med and max for slider lables.
+        $("#maf_min").html(0);
+        $("#maf_med").html(maxMAF/2);
+        $("#maf_max").html(maxMAF);
+        
+        $("#cfs_min").html(0);
+        $("#cfs_med").html(maxCFS/2);
+        $("#cfs_max").html(maxCFS);
     }
 </script>
 
@@ -294,13 +314,22 @@
             <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
             <!-- InstanceBeginEditable name="maincontentarea" -->
             <div id="map_canvas"></div>
+            
+            <div id='slider_titles'>
+            <div class='slider_title'>Flow (cfs): <span id="cfs_amount">0</span></div>
+            <div class='slider_title'>Volume (af): <span id="maf_amount">0</span></div>
+            </div>
             <div class='sliders'>
                 <div id='cfs_slider_container'>
-                    <div id="cfs_amount">test</div>
+                    <span class='water_min' id='cfs_min'>0</span>
+                    <span class='water_med' id='cfs_med'>250</span>
+                    <span class='water_max' id='cfs_max'>500</span>
                     <div id="cfs_slider"></div>
                 </div>
                 <div id='maf_slider_container'>
-                    <div id="maf_amount">test</div>
+                    <span class='water_min' id='maf_min'>0</span>
+                    <span class='water_med' id='maf_med'>250</span>
+                    <span class='water_max' id='maf_max'>500</span>
                     <div id="maf_slider"></div>
                </div>
             </div>
