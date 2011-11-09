@@ -1,0 +1,41 @@
+dt {
+    border-bottom: 1px solid #EFEFEF;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-left: 60px;
+    padding: 10px 0 0;
+}
+dt:before {
+    color: #CCCCCC;
+    content: "Q:";
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-size: 2.5em;
+    font-weight: normal;
+    margin-left: -65px;
+    margin-right: 7px;
+    padding: 0 8px 5px;
+    position: relative;
+    top: 3px;
+}
+dd {
+    line-height: 150%;
+    margin-left: 94px;
+    min-height: 50px;
+    padding: 10px 0 0;
+}
+dd:before {
+    background-color: #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    content: "A:";
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-size: 2.5em;
+    margin-left: -65px;
+    margin-right: 14px;
+    padding: 0 9px;
+    position: relative;
+    top: 13px;
+}
+#maincontent dd p + ul {
+    padding-left: 20px;
+}
