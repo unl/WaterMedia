@@ -171,25 +171,39 @@
         <div id="maincontent">
             <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
             <!-- InstanceBeginEditable name="maincontentarea" -->
-            <div id="map_canvas"></div>
-            
-            <div id='slider_titles'>
-            <div class='slider_title'>Flow (cfs): <span id="cfs_amount">0</span></div>
-            <div class='slider_title'>Volume (af): <span id="maf_amount">0</span></div>
-            </div>
-            <div class='sliders'>
-                <div id='cfs_slider_container'>
-                    <span class='water_min' id='cfs_min'>0</span>
-                    <span class='water_med' id='cfs_med'>250</span>
-                    <span class='water_max' id='cfs_max'>500</span>
-                    <div id="cfs_slider"></div>
+            <div id='map_contents'>
+                <div id='sliders'>
+                    <ul class='wdn_tabs'>
+                        <li><a href=#cfs_slider_container>Flowing</a></li>
+                        <li><a href=#af_slider_container>Standing</a></li>
+                    </ul>
+                    <div class='wdn_tabs_content'>
+                        <div id='cfs_slider_container'>
+                            <div class='slider_title'>
+                                Flow (cfs): <span id="cfs_amount">0</span>
+                            </div>
+                            <div class='slider'>
+                                <div style='clear:both'></div>
+                                <span class='water_min' id='cfs_min'>0</span>
+                                <span class='water_med' id='cfs_med'>250</span>
+                                <span class='water_max' id='cfs_max'>500</span>
+                                <div id="cfs_slider"></div>
+                            </div>
+                        </div>
+                        <div id='af_slider_container'>
+                            <div class='slider_title'>
+                                Volume (af): <span id="maf_amount">0</span>
+                            </div>
+                            <div class='slider'>
+                                <span class='water_min' id='maf_min'>0</span>
+                                <span class='water_med' id='maf_med'>250</span>
+                                <span class='water_max' id='maf_max'>500</span>
+                                <div id="maf_slider"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id='maf_slider_container'>
-                    <span class='water_min' id='maf_min'>0</span>
-                    <span class='water_med' id='maf_med'>250</span>
-                    <span class='water_max' id='maf_max'>500</span>
-                    <div id="maf_slider"></div>
-               </div>
+                <div id="map_canvas"></div>
             </div>
             <!--THIS IS THE END OF THE MAIN CONTENT AREA.-->
       </div>

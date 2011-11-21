@@ -2,31 +2,50 @@ html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
 
 #map_canvas { 
-    width:960px;
-    height:500px
+    width:795px;
+    height:500px;
+    float:right;
 }
 
-.sliders {
+#sliders {
     text-align: center;
-}
-
-#cfs_slider_container, #maf_slider_container, .slider_title {
-    float:left;
-    width: 450px;
-    padding-left: 20px;
-    padding-bottom: 3px;
-}
-
-.water_min {
+    width: 160px;
     float: left;
 }
 
+.slider {
+    padding-left:60px;
+    position: absolute;
+}
+
+.slider_title {
+    padding-bottom: 3px;
+}
+
+#maf_slider, #cfs_slider {
+    height:380px;
+}
+
+.water_min {
+    position:absolute;
+    left:80px;
+    top:370px;
+}
+
+.water_med {
+    position:absolute;
+    left:80px;
+    top:175px;
+}
+
 .water_max {
-    float: right;
+    position:absolute;
+    left:80px;
+    top:0px;
 }
 
 .slider_title {
     font-size: 15px;
     font-weight:bold;
-    padding-top: 10px;
+    padding-bottom: 10px;
 }

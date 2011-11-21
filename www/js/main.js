@@ -100,7 +100,7 @@ function setUpInfoBox(map, id)
 }
 
 function initialize() {
-    var latlng = new google.maps.LatLng(41.6,-99.7);
+    var latlng = new google.maps.LatLng(41.6,-99.75);
     var options = {
         zoom: 7,
         center: latlng,
@@ -110,6 +110,7 @@ function initialize() {
     setUpMarkers(map);
     
     $("#maf_slider").slider({
+        orientation: "vertical",
         value:0,
         min: 0,
         max: maxMAF,
@@ -119,6 +120,7 @@ function initialize() {
     });
     
     $("#cfs_slider").slider({
+        orientation: "vertical",
         value:0,
         min: 0,
         max: maxCFS,
