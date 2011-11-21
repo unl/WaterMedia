@@ -1,11 +1,10 @@
 //set up the locations array from the json information.
-var locations = new Array();
-var markers   = new Array();
-var infoBoxes = new Array();
-var mafIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
-var cfsIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
-var maxMAF = 0;
-var maxCFS = 0;
+var locations    = new Array();
+var markers      = new Array();
+var infoBoxes    = new Array();
+var locationIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
+var maxMAF       = 0;
+var maxCFS       = 0;
 
 WDN.jQuery(document).ready(function(){
     WDN.get('http://ucommfairchild.unl.edu/mediahub/www/channels/1?format=json', function(data){
@@ -24,8 +23,8 @@ WDN.jQuery(document).ready(function(){
                 data['media'][url]['mediahub_water_cfs'] = null;
             }
             
-            if (data['media'][url]['mediahub_water_maf'] == undefined) {
-                data['media'][url]['mediahub_water_maf'] = null;
+            if (data['media'][url]['mediahub_water_af'] == undefined) {
+                data['media'][url]['mediahub_water_af'] = null;
             }
             
             //set max cfs.
@@ -38,14 +37,24 @@ WDN.jQuery(document).ready(function(){
                 maxMAF = data['media'][url]['mediahub_water_maf'];
             }
             
-            locations[data['media'][url]['id']]          = new Array();
-            locations[data['media'][url]['id']]['url']   = url;
-            locations[data['media'][url]['id']]['title'] = data['media'][url]['title'];
-            locations[data['media'][url]['id']]['lat']   = data['media'][url]['geo_lat'];
-            locations[data['media'][url]['id']]['lng']   = data['media'][url]['geo_long'];
-            locations[data['media'][url]['id']]['cfs']   = data['media'][url]['mediahub_water_cfs'];
-            locations[data['media'][url]['id']]['maf']   = data['media'][url]['mediahub_water_maf'];
+            //generate the key (group by geo locaiton).
+            var key = data['media'][url]['geo_lat'] + "," + data['media'][url]['geo_long'];
+            
+            //Set the location array.
+            if (locations[key] == undefined) {
+                locations[key] = new Array();
+            }
+            
+            locations[key][data['media'][url]['id']]          = new Array();
+            locations[key][data['media'][url]['id']]['url']   = url;
+            locations[key][data['media'][url]['id']]['title'] = data['media'][url]['title'];
+            locations[key][data['media'][url]['id']]['lat']   = data['media'][url]['geo_lat'];
+            locations[key][data['media'][url]['id']]['lng']   = data['media'][url]['geo_long'];
+            locations[key][data['media'][url]['id']]['cfs']   = data['media'][url]['mediahub_water_cfs'];
+            locations[key][data['media'][url]['id']]['af']    = data['media'][url]['mediahub_water_af'];
+            locations[key][data['media'][url]['id']]['date']  = data['media'][url]['pubDate'];
         }
+        
         initialize();
     });
 });
@@ -54,44 +63,53 @@ function setUpMarkers(map)
 {
     markers   = new Array();
     infoBoxes = new Array();
-    for (id in locations) {
-        var color = cfsIcon;
+    for (locationID in locations) {
+        if (markers[locationID] != undefined) {
+            continue;
+        }	
         
-        if (locations[id]['cfs'] == null){
-            color = mafIcon;
-        }
+        //get the geo data [0] = lat, [1] = long.
+        var currentLocation = locationID.split(',');
         
-        markers[id] = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[id]['lat'], locations[id]['lng']),
+        var color = locationIcon;
+            
+        markers[locationID] = new google.maps.Marker({
+            position: new google.maps.LatLng(currentLocation[0], currentLocation[1]),
             map: map,
-            title: locations[id]['title'],
-            mediahub_locationID: id,
+            title: "location: " + locationID,
             icon: color
         });
         
-        setUpInfoBox(map, id);
+        setUpInfoBox(map, locationID);
     }
 }
 
 function setUpInfoBox(map, id)
 {
-    var maf = '';
-    var cfs = '';
+    var content = "<h4>Location: " + id  + "</h4>";
+    content += "<table class='infoBoxTable'><tr><td class='media'>Media</td><td class='cfs'>cfs</td><td class='af'>af</td><td class='date'>Date</td></tr>";
     
-    if (locations[id]['maf'] !== null) {
-        maf = "MAF: " + locations[id]['maf'] + "<br />";
+    for (mediaID in locations[id]) {
+        var link = "<a href='" + locations[id][mediaID]['url'] + "'>media</a>";
+        var af   = '';
+        var cfs  = '';
+        var date = locations[id][mediaID]['date'];
+        
+        if (locations[id][mediaID]['af'] !== null) {
+            af = locations[id][mediaID]['af'];
+        }
+        
+        if (locations[id][mediaID]['cfs'] !== null) {
+            cfs = locations[id][mediaID]['cfs'];
+        }
+        
+        content += "<tr><td>" + link + "</td><td>" + cfs + "</td><td>" + af + "</td><td>" + date + "</td></tr>";
     }
     
-    if (locations[id]['cfs'] !== null) {
-        maf = "CFS: " + locations[id]['cfs'] + "<br />";
-    }
-    
-    var content = "Title: " + locations[id]['title'] + "<br />" +
-                    "<a href='" + locations[id]['url'] + "'>media</a><br />" +
-                    maf + cfs;
+    content += "</table>";
     
     infoBoxes[id] = new google.maps.InfoWindow({
-        content: content
+        content: content,
     });
 
     google.maps.event.addListener(markers[id], 'click', function() {
