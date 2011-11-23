@@ -2,8 +2,9 @@
 var locations    = new Array();
 var markers      = new Array();
 var infoBoxes    = new Array();
+var extremes     = new Array();
 var locationIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
-var maxMAF       = 0;
+var maxAF       = 0;
 var maxCFS       = 0;
 
 WDN.jQuery(document).ready(function(){
@@ -32,15 +33,15 @@ WDN.jQuery(document).ready(function(){
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
             }
             
-            //set max maf.
-            if (data['media'][url]['mediahub_water_maf'] > maxMAF) {
-                maxMAF = data['media'][url]['mediahub_water_maf'];
+            //set max af.
+            if (data['media'][url]['mediahub_water_af'] > maxAF) {
+                maxAF = data['media'][url]['mediahub_water_af'];
             }
             
             //generate the key (group by geo locaiton).
             var key = data['media'][url]['geo_lat'] + "," + data['media'][url]['geo_long'];
             
-            //Set the location array.
+            /**Set the location array.**/
             if (locations[key] == undefined) {
                 locations[key] = new Array();
             }
@@ -117,42 +118,167 @@ function setUpInfoBox(map, id)
     });
 }
 
-function initialize() {
+function initExtremes()
+{
+    extremes = new Array();
+    
+    for (key in locations) {
+        for (mediaID in locations[key]) {
+            if (extremes[key] == undefined) {
+                extremes[key] = new Array();
+            }
+            
+            if (locations[key][mediaID]['cfs'] != null) {
+                if (extremes[key]['cfs'] == undefined) {
+                    extremes[key]['cfs'] = new Array();
+                }
+                
+                if (extremes[key]['cfs']['max'] == undefined || locations[key][mediaID]['cfs'] > extremes[key]['cfs']['max']) {
+                    extremes[key]['cfs']['max'] = locations[key][mediaID]['cfs'];
+                }
+            }
+            
+            if (locations[key][mediaID]['af'] != null) {
+                if (extremes[key]['af'] == undefined) {
+                    extremes[key]['af'] = new Array();
+                }
+                
+                if (extremes[key]['af']['max'] == undefined || locations[key][mediaID]['af'] > extremes[key]['af']['max']) {
+                    extremes[key]['af']['max'] = locations[key][mediaID]['af'];
+                }
+            }
+            
+            if (locations[key][mediaID]['cfs'] != null) {
+                if (extremes[key]['cfs'] == undefined) {
+                    extremes[key]['cfs'] = new Array();
+                }
+                
+                if (extremes[key]['cfs']['min'] == undefined || locations[key][mediaID]['cfs'] < extremes[key]['cfs']['min']) {
+                    extremes[key]['cfs']['min'] = locations[key][mediaID]['cfs'];
+                }
+            }
+            
+            if (locations[key][mediaID]['af'] != null) {
+                if (extremes[key]['af'] == undefined) {
+                    extremes[key]['af'] = new Array();
+                }
+                
+                if (extremes[key]['af']['min'] == undefined || locations[key][mediaID]['af'] < extremes[key]['af']['min']) {
+                    extremes[key]['af']['min'] = locations[key][mediaID]['af'];
+                }
+            }
+        }
+    }
+    
+    //finally, loop though and set all the unset extremes
+    for (key in locations) {
+        if (extremes[key]['af'] == undefined) {
+            extremes[key]['af']        = new Array();
+            extremes[key]['af']['max'] = 0;
+            extremes[key]['af']['min'] = 0;
+        }
+        
+        if (extremes[key]['cfs'] == undefined) {
+            extremes[key]['cfs']        = new Array();
+            extremes[key]['cfs']['max'] = 0;
+            extremes[key]['cfs']['min'] = 0;
+        }
+    }
+}
+
+function showHideLocations()
+{
+    if ($('#cfs_slider_container').is(':visible')) {
+        showHideForType('cfs');
+    } else {
+        showHideForType('af');
+    }
+}
+
+function showHideForType(type)
+{
+    if (!(type == 'cfs' || type == 'af')) {
+        return false;
+    }
+    
+    var value;
+    
+    if (type == 'cfs') {
+        value = parseInt($("#cfs_amount").html());
+    }
+    
+    if (type == 'af') {
+        value = parseInt($("#af_amount").html());
+    }
+    
+    for (key in locations) {
+        //WDN.log('type:' + type + 'min:' + extremes[key][type]['min'] + ' value:' + value);
+        if (extremes[key][type]['min'] > 0 && extremes[key][type]['min'] <= value) {
+            markers[key].setVisible(true);
+        } else {
+        	
+            markers[key].setVisible(false);
+        }
+    }
+}
+
+function initialize()
+{
     var latlng = new google.maps.LatLng(41.6,-99.75);
     var options = {
         zoom: 7,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.TERRAIN
     };
+    
     var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+    
     setUpMarkers(map);
     
-    $("#maf_slider").slider({
+    initExtremes();
+    
+    $("#af_slider").slider({
         orientation: "vertical",
-        value:0,
-        min: 0,
-        max: maxMAF,
+        value: maxAF,
+        min:   0,
+        max:   maxAF,
         slide: function( event, ui ) {
-            $("#maf_amount").html(ui.value);
+            $("#af_amount").html(ui.value);
+            showHideLocations();
         }
     });
     
     $("#cfs_slider").slider({
         orientation: "vertical",
-        value:0,
-        min: 0,
-        max: maxCFS,
+        value: maxCFS,
+        min:   0,
+        max:   maxCFS,
         slide: function( event, ui ) {
             $("#cfs_amount").html(ui.value);
+            showHideLocations();
         }
     });
     
     //Set min, med and max for slider lables.
-    $("#maf_min").html(0);
-    $("#maf_med").html(maxMAF/2);
-    $("#maf_max").html(maxMAF);
+    $("#af_min").html(0);
+    $("#af_med").html(maxAF/2);
+    $("#af_max").html(maxAF);
+    $("#af_amount").html(maxAF);
     
     $("#cfs_min").html(0);
     $("#cfs_med").html(maxCFS/2);
     $("#cfs_max").html(maxCFS);
+    $("#cfs_amount").html(maxCFS);
+    
+    $('#afTab').click(function(){
+        WDN.log('selector clicked');
+        showHideForType('af');
+    })
+    
+    $('#cfsTab').click(function(){
+        WDN.log('selector clicked');
+        showHideForType('cfs');
+    })
+    
+    showHideLocations();
 }

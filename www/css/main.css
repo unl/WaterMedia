@@ -22,7 +22,7 @@ body { height: 100%; margin: 0; padding: 0 }
     padding-bottom: 3px;
 }
 
-#maf_slider, #cfs_slider {
+#af_slider, #cfs_slider {
     height:380px;
 }
 

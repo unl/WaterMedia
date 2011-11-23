@@ -174,8 +174,8 @@
             <div id='map_contents'>
                 <div id='sliders'>
                     <ul class='wdn_tabs'>
-                        <li><a href=#cfs_slider_container>Flowing</a></li>
-                        <li><a href=#af_slider_container>Standing</a></li>
+                        <li><a href='#cfs_slider_container' id='cfsTab'>Flowing</a></li>
+                        <li><a href='#af_slider_container' id='afTab'>Standing</a></li>
                     </ul>
                     <div class='wdn_tabs_content'>
                         <div id='cfs_slider_container'>
@@ -192,19 +192,21 @@
                         </div>
                         <div id='af_slider_container'>
                             <div class='slider_title'>
-                                Volume (af): <span id="maf_amount">0</span>
+                                Volume (af): <span id="af_amount">0</span>
                             </div>
                             <div class='slider'>
-                                <span class='water_min' id='maf_min'>0</span>
-                                <span class='water_med' id='maf_med'>250</span>
-                                <span class='water_max' id='maf_max'>500</span>
-                                <div id="maf_slider"></div>
+                                <span class='water_min' id='af_min'>0</span>
+                                <span class='water_med' id='af_med'>250</span>
+                                <span class='water_max' id='af_max'>500</span>
+                                <div id="af_slider"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="map_canvas"></div>
             </div>
+            <div style='clear:both'></div>
+            <div> This map will display locations that have a minimum value for the selected water flow type and that minimum value is lessthan or equal to the current selected value.</div>
             <!--THIS IS THE END OF THE MAIN CONTENT AREA.-->
       </div>
         <div id="footer">
