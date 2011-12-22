@@ -4,7 +4,7 @@ var markers      = new Array();
 var infoBoxes    = new Array();
 var extremes     = new Array();
 var locationIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
-var maxAF       = 0;
+var maxAF        = 0;
 var maxCFS       = 0;
 
 WDN.jQuery(document).ready(function(){
