@@ -57,7 +57,7 @@ WDN.jQuery(document).ready(function(){
         }
         
         initialize();
-    });
+    }, 'json');
 });
 
 function setUpMarkers(map)
