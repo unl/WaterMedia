@@ -8,7 +8,7 @@ var maxAF       = 0;
 var maxCFS       = 0;
 
 WDN.jQuery(document).ready(function(){
-    WDN.get('http://ucommfairchild.unl.edu/mediahub/www/channels/1?format=json', function(data){
+    WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
         for (url in data['media']) {
             //skip if we don't have geo data.
             if (data['media'][url]['geo_lat'] == undefined) {
