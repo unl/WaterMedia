@@ -6,6 +6,8 @@ var extremes     = new Array();
 var locationIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png';
 var maxAF        = 0;
 var maxCFS       = 0;
+var maxDate      = 0;
+var minDate      = 0;
 
 WDN.jQuery(document).ready(function(){
     WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
@@ -36,6 +38,25 @@ WDN.jQuery(document).ready(function(){
                 data['media'][url]['mediahub_media_creation_date'] = data['media'][url]['pubDate'];
             }
             
+            //Set up the date object;
+            var year, month, day;
+            
+            year  = data['media'][url]['mediahub_media_creation_date'].substr(0,4);
+            month = data['media'][url]['mediahub_media_creation_date'].substr(5,2);
+            day   = data['media'][url]['mediahub_media_creation_date'].substr(8,2);
+            
+            WDN.log(year + "-" + month + "-" + day);
+            
+            data['media'][url]['date'] = new Date(year, month, day);
+            
+            if (maxDate == 0 || data['media'][url]['date'] > maxDate) {
+                maxDate = data['media'][url]['date'];
+            }
+            
+            if (minDate == 0 || data['media'][url]['date'] < minDate) {
+                minDate = data['media'][url]['date'];
+            }
+            
             //set max cfs.
             if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
@@ -63,7 +84,7 @@ WDN.jQuery(document).ready(function(){
             locations[key][data['media'][url]['id']]['lng']   = data['media'][url]['geo_long'];
             locations[key][data['media'][url]['id']]['cfs']   = data['media'][url]['mediahub_water_cfs'];
             locations[key][data['media'][url]['id']]['af']    = data['media'][url]['mediahub_water_af'];
-            locations[key][data['media'][url]['id']]['date']  = data['media'][url]['mediahub_media_creation_date'];
+            locations[key][data['media'][url]['id']]['date']  = data['media'][url]['date'];
         }
         
         initialize();
@@ -104,7 +125,7 @@ function setUpInfoBox(map, id)
         var link = "<a href='" + locations[id][mediaID]['url'] + "'>media</a>";
         var af   = '';
         var cfs  = '';
-        var date = locations[id][mediaID]['date'];
+        var date = locations[id][mediaID]['date'].toDateString();
         
         if (locations[id][mediaID]['af'] !== null) {
             af = locations[id][mediaID]['af'];
