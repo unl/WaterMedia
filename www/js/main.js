@@ -32,6 +32,10 @@ WDN.jQuery(document).ready(function(){
                 data['media'][url]['mediahub_water_af'] = null;
             }
             
+            if (data['media'][url]['mediahub_media_creation_date'] == undefined) {
+                data['media'][url]['mediahub_media_creation_date'] = data['media'][url]['pubDate'];
+            }
+            
             //set max cfs.
             if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
@@ -59,7 +63,7 @@ WDN.jQuery(document).ready(function(){
             locations[key][data['media'][url]['id']]['lng']   = data['media'][url]['geo_long'];
             locations[key][data['media'][url]['id']]['cfs']   = data['media'][url]['mediahub_water_cfs'];
             locations[key][data['media'][url]['id']]['af']    = data['media'][url]['mediahub_water_af'];
-            locations[key][data['media'][url]['id']]['date']  = data['media'][url]['pubDate'];
+            locations[key][data['media'][url]['id']]['date']  = data['media'][url]['mediahub_media_creation_date'];
         }
         
         initialize();
