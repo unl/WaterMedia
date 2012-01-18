@@ -179,6 +179,16 @@ function initExtremes()
                 }
             }
             
+            if (locations[key][mediaID]['date'] != null) {
+                if (extremes[key]['date'] == undefined) {
+                    extremes[key]['date'] = new Array();
+                }
+                
+                if (extremes[key]['date']['max'] == undefined || locations[key][mediaID]['date'] > extremes[key]['date']['max']) {
+                    extremes[key]['date']['max'] = locations[key][mediaID]['date'];
+                }
+            }
+            
             if (locations[key][mediaID]['cfs'] != null) {
                 if (extremes[key]['cfs'] == undefined) {
                     extremes[key]['cfs'] = new Array();
@@ -198,6 +208,16 @@ function initExtremes()
                     extremes[key]['af']['min'] = locations[key][mediaID]['af'];
                 }
             }
+            
+            if (locations[key][mediaID]['date'] != null) {
+                if (extremes[key]['date'] == undefined) {
+                    extremes[key]['date'] = new Array();
+                }
+                
+                if (extremes[key]['date']['min'] == undefined || locations[key][mediaID]['date'] < extremes[key]['date']['min']) {
+                    extremes[key]['date']['min'] = locations[key][mediaID]['date'];
+                }
+            }
         }
     }
     
@@ -214,6 +234,12 @@ function initExtremes()
             extremes[key]['cfs']['max'] = 0;
             extremes[key]['cfs']['min'] = 0;
         }
+        
+        if (extremes[key]['date'] == undefined) {
+            extremes[key]['date']        = 0;
+            extremes[key]['date']['max'] = 0;
+            extremes[key]['date']['min'] = 0;
+        }
     }
 }
 
@@ -221,17 +247,21 @@ function showHideLocations(values)
 {
     if ($('#cfs_slider_container').is(':visible')) {
         showHideForType('cfs', values);
-    } else {
+    } else if ($('#af_slider_container').is(':visible')) {
         showHideForType('af', values);
+    } else {
+        showHideForType('date', values);
     }
 }
 
 function showHideForType(type, values)
 {
-    if (!(type == 'cfs' || type == 'af')) {
+    //Can we handle this type?
+    if (!(type == 'cfs' || type == 'af' || type == 'date')) {
         return false;
     }
     
+    //Get values if they were not sent...
     if (values == undefined) {
         var values;
         
@@ -242,8 +272,16 @@ function showHideForType(type, values)
         if (type == 'af') {
             values = $("#af_slider").slider("values");
         }
+        
+        if (type == 'date') {
+            values = new Array();
+            values[0] = Math.floor((minDate.getTime()) / 86400000);
+            values[1] = Math.floor((maxDate.getTime() - minDate.getTime()) / 86400000);
+        }
     }
     
+    //Compare
+    WDN.log('Handle AF, date or CFS compare');
     for (key in locations) {
         WDN.log('type:' + type + ' min:' + extremes[key][type]['min'] + ' max:' + extremes[key][type]['max'] + ' values:' + values);
         if (extremes[key][type]['min'] > 0 && extremes[key][type]['min'] >= values[0] && extremes[key][type]['max'] <= values[1]) {
@@ -252,12 +290,33 @@ function showHideForType(type, values)
             markers[key].setVisible(false);
         }
     }
+
     
-    var name = "Volume (af)";
-    if (type == 'cfs') {
-        name = "Flow (cfs)";
+    //Show hide and set name.
+    var name;
+    
+    switch (type) {
+        case 'af':
+            name = "Volume (af)";
+            $("#cfs_slider_container").hide();
+            $("#af_slider_container").show();
+            $("#date_slider_container").hide();
+            break;
+        case 'cfs':
+            name = "Flow (cfs)";
+            $("#cfs_slider_container").show();
+            $("#af_slider_container").hide();
+            $("#date_slider_container").hide();
+            break;
+        case 'date':
+            name = "Date";
+            $("#cfs_slider_container").hide();
+            $("#af_slider_container").hide();
+            $("#date_slider_container").show();
+            break;
     }
     
+    //Display values
     $("#amount_min").html("Min: " + values[0]);
     $("#amount_max").html("Max: " + values[1]);
     $("#display_type").html(name);
@@ -300,25 +359,54 @@ function initialize()
         }
     });
     
+    $("#date_slider").slider({
+        range: true,
+        orientation: "vertical",
+        values: [0, maxCFS],
+        min:   0,
+        max:   Math.floor((maxDate.getTime() - minDate.getTime()) / 86400000),
+        slide: function( event, ui ) {
+            values = new Array();
+            values[0] = new Date(minDate.getTime());
+            values[0].setDate(values[0].getDate() + ui.values[0]);
+            
+            values[1] = new Date(minDate.getTime());
+            values[1].setDate(values[1].getDate() + ui.values[1]);
+            WDN.log(values);
+            showHideLocations(values);
+        }
+    });
+    
     //Set min, med and max for slider lables.
     $("#af_min").html(0);
     $("#af_med").html(maxAF/2);
     $("#af_max").html(maxAF);
-    $("#af_amount").html(maxAF);
     
     $("#cfs_min").html(0);
     $("#cfs_med").html(maxCFS/2);
     $("#cfs_max").html(maxCFS);
-    $("#cfs_amount").html(maxCFS);
+    
+    $("#date_min").html(minDate.toDateString());
+    var date = new Date(Math.floor(minDate.getTime() + ((maxDate.getTime() - minDate.getTime()) / 2)));
+    $("#date_med").html(date.toDateString());
+    $("#date_max").html(maxDate.toDateString());
     
     $('#afTab').click(function(){
         WDN.log('selector clicked');
         showHideForType('af');
+        return false;
     })
     
     $('#cfsTab').click(function(){
         WDN.log('selector clicked');
         showHideForType('cfs');
+        return false;
+    })
+    
+    $('#dateTab').click(function(){
+        WDN.log('selector clicked');
+        showHideForType('date');
+        return false;
     })
     
     showHideLocations();
