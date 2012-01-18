@@ -227,6 +227,15 @@ function showHideForType(type, values)
             markers[key].setVisible(false);
         }
     }
+    
+    var name = "Volume (af)";
+    if (type == 'cfs') {
+        name = "Flow (cfs)";
+    }
+    
+    $("#amount_min").html("Min: " + values[0]);
+    $("#amount_max").html("Max: " + values[1]);
+    $("#display_type").html(name);
 }
 
 function initialize()
@@ -251,7 +260,6 @@ function initialize()
         min:   0,
         max:   maxAF,
         slide: function( event, ui ) {
-            $("#af_amount").html("min: " + ui.values[0] + " max: " + ui.values[1]);
             showHideLocations(ui.values);
         }
     });
@@ -263,7 +271,6 @@ function initialize()
         min:   0,
         max:   maxCFS,
         slide: function( event, ui ) {
-            $("#cfs_amount").html("min: " + ui.values[0] + " max: " + ui.values[1]);
             showHideLocations(ui.values);
         }
     });
