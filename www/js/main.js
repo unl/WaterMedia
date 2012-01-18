@@ -19,6 +19,10 @@ WDN.jQuery(document).ready(function(){
                 continue;
             }
             
+            //sanatize data
+            data['media'][url]['mediahub_water_cfs'] = parseInt(data['media'][url]['mediahub_water_cfs']);
+            data['media'][url]['mediahub_water_af'] = parseInt(data['media'][url]['mediahub_water_af']);
+            
             //make sure things are formatted well.
             if (data['media'][url]['mediahub_water_cfs'] == undefined) {
                 data['media'][url]['mediahub_water_cfs'] = null;
@@ -31,11 +35,13 @@ WDN.jQuery(document).ready(function(){
             //set max cfs.
             if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
+                WDN.log('maxCFS: ' + maxCFS);
             }
             
             //set max af.
             if (data['media'][url]['mediahub_water_af'] > maxAF) {
                 maxAF = data['media'][url]['mediahub_water_af'];
+                WDN.log('maxAF: ' + maxAF);
             }
             
             //generate the key (group by geo locaiton).
@@ -186,37 +192,38 @@ function initExtremes()
     }
 }
 
-function showHideLocations()
+function showHideLocations(values)
 {
     if ($('#cfs_slider_container').is(':visible')) {
-        showHideForType('cfs');
+        showHideForType('cfs', values);
     } else {
-        showHideForType('af');
+        showHideForType('af', values);
     }
 }
 
-function showHideForType(type)
+function showHideForType(type, values)
 {
     if (!(type == 'cfs' || type == 'af')) {
         return false;
     }
     
-    var value;
-    
-    if (type == 'cfs') {
-        value = parseInt($("#cfs_amount").html());
-    }
-    
-    if (type == 'af') {
-        value = parseInt($("#af_amount").html());
+    if (values == undefined) {
+        var values;
+        
+        if (type == 'cfs') {
+            values = $("#cfs_slider").slider("values");
+        }
+        
+        if (type == 'af') {
+            values = $("#af_slider").slider("values");
+        }
     }
     
     for (key in locations) {
-        //WDN.log('type:' + type + 'min:' + extremes[key][type]['min'] + ' value:' + value);
-        if (extremes[key][type]['min'] > 0 && extremes[key][type]['min'] <= value) {
+        WDN.log('type:' + type + ' min:' + extremes[key][type]['min'] + ' max:' + extremes[key][type]['max'] + ' values:' + values);
+        if (extremes[key][type]['min'] > 0 && extremes[key][type]['min'] >= values[0] && extremes[key][type]['max'] <= values[1]) {
             markers[key].setVisible(true);
         } else {
-        	
             markers[key].setVisible(false);
         }
     }
@@ -238,24 +245,26 @@ function initialize()
     initExtremes();
     
     $("#af_slider").slider({
+        range: true,
         orientation: "vertical",
-        value: maxAF,
+        values: [0, maxAF],
         min:   0,
         max:   maxAF,
         slide: function( event, ui ) {
-            $("#af_amount").html(ui.value);
-            showHideLocations();
+            $("#af_amount").html("min: " + ui.values[0] + " max: " + ui.values[1]);
+            showHideLocations(ui.values);
         }
     });
     
     $("#cfs_slider").slider({
+        range: true,
         orientation: "vertical",
-        value: maxCFS,
+        values: [0, maxCFS],
         min:   0,
         max:   maxCFS,
         slide: function( event, ui ) {
-            $("#cfs_amount").html(ui.value);
-            showHideLocations();
+            $("#cfs_amount").html("min: " + ui.values[0] + " max: " + ui.values[1]);
+            showHideLocations(ui.values);
         }
     });
     
