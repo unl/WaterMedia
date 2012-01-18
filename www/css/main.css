@@ -11,6 +11,7 @@ body { height: 100%; margin: 0; padding: 0 }
     text-align: center;
     width: 160px;
     float: left;
+    margin-top: 50px;
 }
 
 .slider {
@@ -34,6 +35,13 @@ body { height: 100%; margin: 0; padding: 0 }
     text-align: left;
 }
 
+#sliderTabs a{
+    padding:5px;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+}
+
 .water_med {
     position:absolute;
     left:80px;
@@ -50,10 +58,14 @@ body { height: 100%; margin: 0; padding: 0 }
     text-align: left;
 }
 
-.slider_title {
-    font-size: 15px;
-    font-weight:bold;
-    padding-bottom: 10px;
+#mapHeader {
+    margin-bottom: 2px;
+    height: 50px;
+    width: 100%;
+}
+
+#amounts {
+    text-align: center;
 }
 
 /** Table **/

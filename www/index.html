@@ -104,14 +104,21 @@
         <div id="maincontent">
             <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
             <!-- InstanceBeginEditable name="maincontentarea" -->
+            <div id="mapHeader">
+                <div id='sliderTabs'>
+                        <a href='#cfs_slider_container' id='cfsTab'>Flowing</a>
+                        <a href='#af_slider_container' id='afTab'>Standing</a>
+                        <a href='#date_slider_container' id='dateTab'>Date</a>
+                </div>
+                <div id="headLinks">
+                </div>
+                <div id='amounts'>
+                    <span id="display_type"></span> <span id="amount_min"></span> <span id="amount_max"></span>
+                </div>
+            </div>
             <div id='map_contents'>
                 <div id='sliders'>
-                    <ul class='modes'>
-                        <li><a href='#cfs_slider_container' id='cfsTab'>Flowing</a></li>
-                        <li><a href='#af_slider_container' id='afTab'>Standing</a></li>
-                        <li><a href='#date_slider_container' id='dateTab'>Date</a></li>
-                    </ul>
-                    <div class='wdn_tabs_content'>
+                    <div id='slider_container'>
                         <div id='cfs_slider_container'>
                             <div class='slider'>
                                 <div style='clear:both'></div>
@@ -139,7 +146,6 @@
                         </div>
                     </div>
                 </div>
-                <span id="display_type"></span> <span id="amount_min"></span> <span id="amount_max"></span>
                 <div id="map_canvas"></div>
             </div>
             <div style='clear:both'></div>
