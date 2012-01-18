@@ -317,6 +317,14 @@ function showHideForType(type, values)
     }
     
     //Display values
+    if (values[0] instanceof Date) {
+        values[0] = values[0].toDateString(); 
+    }
+    
+    if (values[1] instanceof Date) {
+        values[1] = values[1].toDateString(); 
+    }
+    
     $("#amount_min").html("Min: " + values[0]);
     $("#amount_max").html("Max: " + values[1]);
     $("#display_type").html(name);
