@@ -15,7 +15,7 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 .slider {
-    padding-left:60px;
+    padding-left:40px;
     position: absolute;
 }
 
@@ -27,12 +27,60 @@ body { height: 100%; margin: 0; padding: 0 }
     height:380px;
 }
 
+#display_type {
+    font-size: 30px;
+}
+
+#amount_min, #amount_max {
+    padding-left:25px;
+}
+
+
+
 .water_min {
     position:absolute;
-    left:80px;
+    left:60px;
     top:370px;
-    width: 75px;
+    width: 85px;
     text-align: left;
+}
+
+#sliderTabs {
+    float: left;
+    width: 25%;
+}
+
+#amounts {
+    float: left;
+    width: 65%;
+}
+
+#headLinks {
+    float: left;
+    wdith: 25%;
+}
+
+#infowindow {
+    height:500px;
+}
+
+#waterMedia {
+    
+}
+
+#headLinks img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+#headLinks a{
+    text-align: right;
+}
+
+#instructions {
+    text-align: center;
+    margin-top: 10px;
 }
 
 #sliderTabs a{
@@ -44,23 +92,23 @@ body { height: 100%; margin: 0; padding: 0 }
 
 .water_med {
     position:absolute;
-    left:80px;
+    left:60px;
     top:175px;
-    width: 75px;
+    width: 85px;
     text-align: left;
 }
 
 .water_max {
     position:absolute;
-    left:80px;
+    left:60px;
     top:0px;
-    width: 75px;
+    width: 85px;
     text-align: left;
 }
 
 #mapHeader {
-    margin-bottom: 2px;
-    height: 50px;
+    margin-bottom: 5px;
+    height:30px;
     width: 100%;
 }
 

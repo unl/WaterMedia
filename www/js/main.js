@@ -1,5 +1,6 @@
 //set up the locations array from the json information.
 var locations    = new Array();
+var media        = new Array();
 var markers      = new Array();
 var infoBoxes    = new Array();
 var extremes     = new Array();
@@ -11,6 +12,7 @@ var minDate      = 0;
 
 WDN.jQuery(document).ready(function(){
     WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
+        media = data['media'];
         for (url in data['media']) {
             //skip if we don't have geo data.
             if (data['media'][url]['geo_lat'] == undefined) {
@@ -85,6 +87,7 @@ WDN.jQuery(document).ready(function(){
             locations[key][data['media'][url]['id']]['cfs']   = data['media'][url]['mediahub_water_cfs'];
             locations[key][data['media'][url]['id']]['af']    = data['media'][url]['mediahub_water_af'];
             locations[key][data['media'][url]['id']]['date']  = data['media'][url]['date'];
+            locations[key][data['media'][url]['id']]['media'] = data['media'][url]['url'];
         }
         
         initialize();
@@ -118,11 +121,11 @@ function setUpMarkers(map)
 
 function setUpInfoBox(map, id)
 {
-    var content = "<h4>Location: " + id  + "</h4>";
+    var content = "<div id='infoWindow'>Location: " + id  + "<br />";
     content += "<table class='infoBoxTable'><tr><td class='media'>Media</td><td class='cfs'>cfs</td><td class='af'>af</td><td class='date'>Date</td></tr>";
     
     for (mediaID in locations[id]) {
-        var link = "<a href='" + locations[id][mediaID]['url'] + "'>media</a>";
+        var link = "<a href='" + locations[id][mediaID]['url'] + "' class='colorBoxElement'>media</a>";
         var af   = '';
         var cfs  = '';
         var date = locations[id][mediaID]['date'].toDateString();
@@ -138,7 +141,7 @@ function setUpInfoBox(map, id)
         content += "<tr><td>" + link + "</td><td>" + cfs + "</td><td>" + af + "</td><td>" + date + "</td></tr>";
     }
     
-    content += "</table>";
+    content += "</table></div>";
     
     infoBoxes[id] = new google.maps.InfoWindow({
         content: content,
@@ -146,7 +149,23 @@ function setUpInfoBox(map, id)
 
     google.maps.event.addListener(markers[id], 'click', function() {
         infoBoxes[id].open(map, markers[id]);
+        
+        WDN.jQuery(".colorBoxElement").click(function(){
+           updateMedia(media[this]);
+           
+           WDN.jQuery(".colorBoxElement").colorbox({width:"700px", height:"570px",inline:true, href:"#waterMedia"}, function(){
+               return false;
+           });
+        });
+
     });
+}
+
+function updateMedia(element)
+{
+    var html = "<video id='player' height='480' width='640' src='" + element['url'] + "' controls poster='http://itunes.unl.edu/thumbnails.php?url=" + element['url'] + "'></video>";
+    $('#waterMedia').html(html);
+    player = new MediaElementPlayer('#player');
 }
 
 function initExtremes()
@@ -275,8 +294,8 @@ function showHideForType(type, values)
         
         if (type == 'date') {
             values = new Array();
-            values[0] = Math.floor((minDate.getTime()) / 86400000);
-            values[1] = Math.floor((maxDate.getTime() - minDate.getTime()) / 86400000);
+            values[0] = minDate.toDateString();
+            values[1] = maxDate.toDateString();
         }
     }
     

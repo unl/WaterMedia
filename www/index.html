@@ -37,13 +37,16 @@
 .style1 {font-style: italic}
 -->
 </style>
-<!-- InstanceEndEditable -->
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="http://www.unl.edu/wdn/templates_3.0/scripts/mediaelement.js"></script>
 <script type="text/javascript"  src="js/main.js"></script>
 <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.unl.edu/wdn/templates_3.0/css/content/mediaelement.css"/>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
+<!--[if IE]><script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script><![endif]-->
+<!-- InstanceEndEditable -->
 </head>
 <body class="fixed">
 <p class="skipnav"> <a class="skipnav" href="#maincontent">Skip Navigation</a> </p>
@@ -110,12 +113,16 @@
                         <a href='#af_slider_container' id='afTab'>Standing</a>
                         <a href='#date_slider_container' id='dateTab'>Date</a>
                 </div>
-                <div id="headLinks">
-                </div>
                 <div id='amounts'>
                     <span id="display_type"></span> <span id="amount_min"></span> <span id="amount_max"></span>
                 </div>
+                <div id="headLinks">
+                    <a href='water101/index.html'><img src='images/droplet.gif' /> Water 101</a>
+                </div>
             </div>
+            
+            <hr />
+            
             <div id='map_contents'>
                 <div id='sliders'>
                     <div id='slider_container'>
@@ -149,7 +156,22 @@
                 <div id="map_canvas"></div>
             </div>
             <div style='clear:both'></div>
-            <div> This map will display locations that have a minimum value for the selected water flow type and that minimum value is less than or equal to the current selected value.</div>
+            <hr />
+            <div id='instructions'>
+                <p>
+                    Water Quantity VideoPage Instructions:
+                </p>
+                <ol>
+                    <li>Select whether you wish to screen water media by volume, flow, or by date.</li>
+                    <li>If desired, set maximum or minimum values on the slider.</li>
+                    <li>Select a point on the map to see photos and videos.</li>
+                </ol>
+            </div>
+            <div class='hidden'>
+                <div id='waterMedia'>
+                    <!-- This will be updated with media -->
+                </div>
+            </div>
             <!--THIS IS THE END OF THE MAIN CONTENT AREA.-->
       </div>
         <div id="footer">
