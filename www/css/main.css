@@ -52,7 +52,8 @@ body { height: 100%; margin: 0; padding: 0 }
 
 #amounts {
     float: left;
-    width: 65%;
+    width: 62%;
+    text-align: center;
 }
 
 #headLinks {
@@ -114,10 +115,6 @@ body { height: 100%; margin: 0; padding: 0 }
     margin-bottom: 5px;
     height:30px;
     width: 100%;
-}
-
-#amounts {
-    text-align: center;
 }
 
 /** Table **/
