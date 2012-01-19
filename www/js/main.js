@@ -389,9 +389,9 @@ function initialize()
     $("#date_slider").slider({
         range: true,
         orientation: "vertical",
-        values: [0, maxCFS],
+        values: [0, maxDate],
         min:   0,
-        max:   Math.floor((maxDate.getTime() - minDate.getTime()) / 86400000),
+        max:   Math.floor((maxDate.getTime() + 86400000 - minDate.getTime()) / 86400000),
         slide: function( event, ui ) {
             values = new Array();
             values[0] = new Date(minDate.getTime());
