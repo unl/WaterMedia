@@ -294,8 +294,8 @@ function showHideForType(type, values)
         
         if (type == 'date') {
             values = new Array();
-            values[0] = minDate.toDateString();
-            values[1] = maxDate.toDateString();
+            values[0] = minDate;
+            values[1] = maxDate;
         }
     }
     
