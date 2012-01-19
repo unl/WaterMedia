@@ -64,10 +64,6 @@ body { height: 100%; margin: 0; padding: 0 }
     height:500px;
 }
 
-#waterMedia {
-    
-}
-
 #headLinks img {
     width: 30px;
     height: 30px;
@@ -79,8 +75,16 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 #instructions {
-    text-align: center;
     margin-top: 10px;
+}
+
+#instructions ol {
+    margin-left: 250px;
+    margin-right: 150px;
+}
+
+#instructions h2{
+    text-align: center;
 }
 
 #sliderTabs a{

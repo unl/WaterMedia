@@ -1,0 +1,10 @@
+#waterNav a{
+    padding:5px;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+}
+
+#waterNav {
+    margin-bottom:10px;
+}
