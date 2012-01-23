@@ -112,7 +112,7 @@
                         <a href='#date_slider_container' id='dateTab'>Date</a>
                 </div>
                 <div id='amounts'>
-                    <span id="display_type"></span> <span id="amount_min"></span> <span id="amount_max"></span>
+                    <span id="display_type"></span>
                 </div>
                 <div id="headLinks">
                     <a href='water101/'><img src='images/droplet.gif' alt='A water droplet'/> Water 101</a>
@@ -123,6 +123,14 @@
             
             <div id='map_contents'>
                 <div id='sliders'>
+                    <div id='amounts'>
+                        <div class='amounts'>
+                            Min: <input type='text' id='amount_min_input' value=''></input>
+                        </div>
+                        <div class='amounts'>
+                            Max: <input type='text' id='amount_max_input' value=''></input>
+                        </div>
+                    </div>
                     <div id='slider_container'>
                         <div id='cfs_slider_container'>
                             <div class='slider'>
@@ -156,9 +164,9 @@
             <div style='clear:both'></div>
             <hr />
             <div id='instructions'>
-                <h2>
+                <h3>
                     Instructions:
-                </h2>
+                </h3>
                 <ol>
                     <li>Select whether you wish to screen water media by volume, flow, or by date.</li>
                     <li>If desired, set maximum or minimum values on the slider.</li>

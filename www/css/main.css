@@ -11,7 +11,10 @@ body { height: 100%; margin: 0; padding: 0 }
     text-align: center;
     width: 160px;
     float: left;
-    margin-top: 50px;
+}
+
+#slider_container {
+    margin-top:60px;
 }
 
 .slider {
@@ -31,11 +34,23 @@ body { height: 100%; margin: 0; padding: 0 }
     font-size: 30px;
 }
 
-#amount_min, #amount_max {
-    padding-left:25px;
+#amounts input {
+    width:55px;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
 }
 
+.amounts {
+    margin-top:5px;
+    margin-left: 5px;
+}
 
+#amounts input:focus{
+    border-style:solid;
+    border-width:2px;
+    border-color:black;
+}
 
 .water_min {
     position:absolute;
@@ -84,7 +99,7 @@ body { height: 100%; margin: 0; padding: 0 }
     margin-right: 150px;
 }
 
-#instructions h2{
+#instructions h3{
     text-align: center;
 }
 

@@ -344,9 +344,20 @@ function showHideForType(type, values)
         values[1] = values[1].toDateString(); 
     }
     
-    $("#amount_min").html("Min: " + values[0]);
-    $("#amount_max").html("Max: " + values[1]);
+    $("#amount_min_input").val(values[0]);
+    $("#amount_max_input").val(values[1]);
     $("#display_type").html(name);
+}
+
+function getCurrentSlider()
+{
+    if ($('#cfs_slider_container').is(':visible')) {
+        return '#cfs_slider';
+    } else if ($('#af_slider_container').is(':visible')) {
+        return '#af_slider';
+    } else {
+        return '#date_slider';
+    }
 }
 
 function initialize()
@@ -439,5 +450,79 @@ function initialize()
         return false;
     })
     
+    var slider = getCurrentSlider();
+    
+    $('#amount_min_input, #amount_max_input').keydown(function(event){
+       if (isValidAmount(event.which)) {
+           return true;
+       }
+       
+       return false;
+    });
+    
+    $('#amount_min_input, #amount_max_input').click()
+    {
+        $(this).select();
+    }
+    
+    $('#amount_min_input').keyup(function(){
+        var amount = parseFloat($('#amount_min_input').val());
+        
+        if (isNaN(amount)) {
+            amount = 0;
+        }
+        
+        $(slider).slider('values', 0, amount);
+        showHideLocations($(slider).slider('values'));
+    });
+    
+    $('#amount_max_input').keyup(function(){
+        var amount = parseFloat($('#amount_max_input').val());
+        
+        if (isNaN(amount)) {
+            amount = 0;
+        }
+        
+        $(slider).slider('values', 1, amount);
+        showHideLocations($(slider).slider('values'));
+    });
+    
     showHideLocations();
+}
+
+function isValidAmount(amount)
+{
+   switch(amount){
+   case 49:
+   case 50:
+   case 51:
+   case 52:
+   case 53:
+   case 54:
+   case 55:
+   case 56:
+   case 57:
+   case 58:
+   case 96:
+   case 97:
+   case 98:
+   case 99:
+   case 100:
+   case 101:
+   case 102:
+   case 103:
+   case 104:
+   case 105:
+   case 106:
+   case 116:
+   case 224:
+   case 9:
+   case 8:
+   case 17:
+   case 18:
+       return true;
+       break;
+   default: 
+       return false;
+   }
 }
