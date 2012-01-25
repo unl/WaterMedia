@@ -106,12 +106,13 @@
             <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
             <!-- InstanceBeginEditable name="maincontentarea" -->
             <div id="mapHeader">
-                <div id='sliderTabs'>
+                <div id='sliderTabs' class='border'>
+                        <h3>Select a Data Type:</h3>
                         <a href='#cfs_slider_container' id='cfsTab'>Flow</a>
                         <a href='#af_slider_container' id='afTab'>Volume</a>
                         <a href='#date_slider_container' id='dateTab'>Date</a>
                 </div>
-                <div id='amounts'>
+                <div id='dataType'>
                     <span id="display_type"></span>
                 </div>
                 <div id="headLinks">
@@ -119,16 +120,19 @@
                 </div>
             </div>
             
-            <hr />
+            <br />
             
             <div id='map_contents'>
-                <div id='sliders'>
+                <div id='sliders' class='border'>
+                    <div>
+                        <h3>Edit Range:</h3>
+                    </div>
                     <div id='amounts'>
                         <div class='amounts'>
-                            Min: <input type='text' id='amount_min_input' value=''></input>
+                            Min: <br /> <input type='text' id='amount_min_input' value=''></input>
                         </div>
                         <div class='amounts'>
-                            Max: <input type='text' id='amount_max_input' value=''></input>
+                            Max: <br /> <input type='text' id='amount_max_input' value=''></input>
                         </div>
                     </div>
                     <div id='slider_container'>
@@ -159,7 +163,10 @@
                         </div>
                     </div>
                 </div>
-                <div id="map_canvas"></div>
+                <div id='map' class='border'>
+                    <h3>Select and View Media:</h3>
+                    <div id="map_canvas"></div>
+                </div>
             </div>
             <div style='clear:both'></div>
             <hr />

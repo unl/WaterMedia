@@ -9,8 +9,24 @@ body { height: 100%; margin: 0; padding: 0 }
 
 #sliders {
     text-align: center;
-    width: 160px;
+    width: 150px;
     float: left;
+    height: 545px;
+    margin-right: 5px;
+}
+
+.border {
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
+#map {
+    float: left;
+    padding: 3px;
+    height: 540px;
 }
 
 #slider_container {
@@ -43,7 +59,7 @@ body { height: 100%; margin: 0; padding: 0 }
 
 .amounts {
     margin-top:5px;
-    margin-left: 5px;
+    margin-left: 20px;
 }
 
 #amounts input:focus{
@@ -62,18 +78,26 @@ body { height: 100%; margin: 0; padding: 0 }
 
 #sliderTabs {
     float: left;
-    width: 25%;
+    width: 330px;
+    padding:5px;
+}
+
+#dataType {
+    float: left;
+    text-align: center;
+    width: 500px;
+    margin-top:10px;
 }
 
 #amounts {
     float: left;
-    width: 62%;
     text-align: center;
 }
 
 #headLinks {
     float: left;
     wdith: 25%;
+    margin-top:5px;
 }
 
 #infowindow {
@@ -103,6 +127,10 @@ body { height: 100%; margin: 0; padding: 0 }
     text-align: center;
 }
 
+#sliderTabs h3 {
+    display: inline;
+}
+
 #sliderTabs a{
     padding:5px;
     border-style:solid;
@@ -127,7 +155,6 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 #mapHeader {
-    margin-bottom: 5px;
     height:30px;
     width: 100%;
 }
