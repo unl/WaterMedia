@@ -374,7 +374,20 @@ function initialize()
     setUpMarkers(map);
     
     var kmlLayer = new google.maps.KmlLayer('http://watercenter.unl.edu/WaterFlowMap/data/all_raster_crushed.kmz');
+    
     kmlLayer.setMap(map);
+    
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+        zoomLevel = map.getZoom();
+        
+        //At 9 disable kml layer.
+        if (zoomLevel < 9) {
+            kmlLayer.setMap(map);
+        } else {
+            kmlLayer.setMap(null);
+        }
+    });
+
     
     initExtremes();
     
