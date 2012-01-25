@@ -468,8 +468,6 @@ function initialize()
         return false;
     })
     
-    var slider = getCurrentSlider();
-    
     $('#amount_min_input, #amount_max_input').keydown(function(event){
        if (isValidAmount(event.which)) {
            return true;
@@ -478,12 +476,8 @@ function initialize()
        return false;
     });
     
-    $('#amount_min_input, #amount_max_input').click()
-    {
-        $(this).select();
-    }
-    
     $('#amount_min_input').keyup(function(){
+        var slider = getCurrentSlider();
         var amount = parseFloat($('#amount_min_input').val());
         
         if (isNaN(amount)) {
@@ -495,6 +489,7 @@ function initialize()
     });
     
     $('#amount_max_input').keyup(function(){
+        var slider = getCurrentSlider();
         var amount = parseFloat($('#amount_max_input').val());
         
         if (isNaN(amount)) {
