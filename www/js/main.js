@@ -434,18 +434,21 @@ function initialize()
     
     $('#afTab').click(function(){
         WDN.log('selector clicked');
+        $('#amounts input').removeAttr('disabled');
         showHideForType('af');
         return false;
     })
     
     $('#cfsTab').click(function(){
         WDN.log('selector clicked');
+        $('#amounts input').removeAttr('disabled');
         showHideForType('cfs');
         return false;
     })
     
     $('#dateTab').click(function(){
         WDN.log('selector clicked');
+        $('#amounts input').attr('disabled', 'disabled');
         showHideForType('date');
         return false;
     })
