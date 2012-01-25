@@ -125,7 +125,7 @@ function setUpInfoBox(map, id)
     content += "<table class='infoBoxTable'><tr><td class='media'>Media</td><td class='cfs'>cfs</td><td class='af'>af</td><td class='date'>Date</td></tr>";
     
     for (mediaID in locations[id]) {
-        var link = "<a href='" + locations[id][mediaID]['url'] + "' class='colorBoxElement'>media</a>";
+        var link = "<a href='" + locations[id][mediaID]['url'] + "' class='colorBoxElement'>" + locations[id][mediaID]['title'] + "</a>";
         var af   = '';
         var cfs  = '';
         var date = locations[id][mediaID]['date'].toDateString();
