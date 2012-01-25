@@ -386,6 +386,8 @@ function initialize()
         } else {
             kmlLayer.setMap(null);
         }
+        
+        map.setZoom(zoomLevel);
     });
 
     
