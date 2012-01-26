@@ -10,8 +10,6 @@ var maxCFS       = 0;
 var maxDate      = 0;
 var minDate      = 0;
 
-var date = new Date();
-
 function formatDate(date)
 {
     return date.getFullYear() + "-" + (date.getMonth() + 1)  + "-" + date.getDate();
@@ -97,6 +95,8 @@ WDN.jQuery(document).ready(function(){
             locations[key][data['media'][url]['id']]['media'] = data['media'][url]['url'];
         }
         
+        
+        //$('#amount_min_input').datepicker();
         initialize();
     }, 'json');
 });
@@ -420,7 +420,7 @@ function initialize()
     
     setUpMarkers(map);
     
-    var kmlLayer = new google.maps.KmlLayer('http://watercenter.unl.edu/WaterFlowMap/data/all_raster_crushed.kmz');
+    var kmlLayer = new google.maps.KmlLayer('http://watercenter.unl.edu/WaterFlowMap/data/all_raster_crushed.kmz', {'preserveViewport': true});
     
     kmlLayer.setMap(map);
     
@@ -429,12 +429,17 @@ function initialize()
         
         //At 9 disable kml layer.
         if (zoomLevel < 9) {
-            kmlLayer.setMap(map);
+            if (!kmlLayer.getMap()) {
+                kmlLayer.setMap(map);
+            }
         } else {
-            kmlLayer.setMap(null);
+            if (kmlLayer.getMap()) {
+                kmlLayer.setMap(null);
+            }
         }
         
-        map.setZoom(zoomLevel);
+        return true;
+        //map.setZoom(zoomLevel);
     });
 
     initExtremes();
