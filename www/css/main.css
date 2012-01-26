@@ -168,3 +168,7 @@ body { height: 100%; margin: 0; padding: 0 }
     padding-left: 3px;
     padding-right: 3px;
 }
+
+#ui-datepicker-div {
+    z-index: 3 !important;
+}
