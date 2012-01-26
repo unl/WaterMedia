@@ -10,6 +10,13 @@ var maxCFS       = 0;
 var maxDate      = 0;
 var minDate      = 0;
 
+var date = new Date();
+
+function formatDate(date)
+{
+    return date.getFullYear() + "-" + (date.getMonth() + 1)  + "-" + date.getDate();
+}
+
 WDN.jQuery(document).ready(function(){
     WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
         media = data['media'];
@@ -128,7 +135,7 @@ function setUpInfoBox(map, id)
         var link = "<a href='" + locations[id][mediaID]['url'] + "' class='colorBoxElement'>" + locations[id][mediaID]['title'] + "</a>";
         var af   = '';
         var cfs  = '';
-        var date = locations[id][mediaID]['date'].toDateString();
+        var date = formatDate(locations[id][mediaID]['date']);
         
         if (locations[id][mediaID]['af'] !== null) {
             af = locations[id][mediaID]['af'];
@@ -337,11 +344,11 @@ function showHideForType(type, values)
     
     //Display values
     if (values[0] instanceof Date) {
-        values[0] = values[0].toDateString(); 
+        values[0] = formatDate(values[0]); 
     }
     
     if (values[1] instanceof Date) {
-        values[1] = values[1].toDateString(); 
+        values[1] = formatDate(values[1]); 
     }
     
     $("#amount_min_input").val(values[0]);
@@ -358,6 +365,46 @@ function getCurrentSlider()
     } else {
         return '#date_slider';
     }
+}
+
+function destroyDatePickers()
+{
+    if ($('#amount_min_input').hasClass('hasDatepicker') == true) {
+        $('#amount_min_input').datepicker("destroy");
+    }
+    
+    if ($('#amount_max_input').hasClass('hasDatepicker') == true) {
+        $('#amount_max_input').datepicker("destroy");
+    }
+}
+
+function createDatePickers()
+{
+    var options = {'dateFormat': 'yy-mm-dd',
+                   'changeMonth': true,
+                   'changeYear': true,
+                   'maxDate': formatDate(maxDate),
+                   'minDate': formatDate(minDate)}
+    if ($('#amount_min_input').hasClass('hasDatepicker') == false) {
+        $('#amount_min_input').datepicker(options);
+    }
+    
+    if ($('#amount_max_input').hasClass('hasDatepicker') == false) {
+        $('#amount_max_input').datepicker(options);
+    }
+}
+
+function getCurrentDates()
+{
+    ui_values = $('#date_slider').slider('values');
+    values = new Array();
+    values[0] = new Date(minDate.getTime());
+    values[0].setDate(values[0].getDate() + ui_values[0]);
+    
+    values[1] = new Date(minDate.getTime());
+    values[1].setDate(values[1].getDate() + ui_values[1]);
+    
+    return values;
 }
 
 function initialize()
@@ -442,28 +489,28 @@ function initialize()
     $("#cfs_med").html(maxCFS/2);
     $("#cfs_max").html(maxCFS);
     
-    $("#date_min").html(minDate.toDateString());
+    $("#date_min").html(formatDate(minDate));
     var date = new Date(Math.floor(minDate.getTime() + ((maxDate.getTime() - minDate.getTime()) / 2)));
-    $("#date_med").html(date.toDateString());
-    $("#date_max").html(maxDate.toDateString());
+    $("#date_med").html(formatDate(date));
+    $("#date_max").html(formatDate(maxDate));
     
     $('#afTab').click(function(){
         WDN.log('selector clicked');
-        $('#amounts input').removeAttr('disabled');
+        destroyDatePickers();
         showHideForType('af');
         return false;
     })
     
     $('#cfsTab').click(function(){
         WDN.log('selector clicked');
-        $('#amounts input').removeAttr('disabled');
+        destroyDatePickers();
         showHideForType('cfs');
         return false;
     })
     
     $('#dateTab').click(function(){
         WDN.log('selector clicked');
-        $('#amounts input').attr('disabled', 'disabled');
+        createDatePickers();
         showHideForType('date');
         return false;
     })
@@ -477,30 +524,75 @@ function initialize()
     });
     
     $('#amount_min_input').keyup(function(){
-        var slider = getCurrentSlider();
-        var amount = parseFloat($('#amount_min_input').val());
-        
-        if (isNaN(amount)) {
-            amount = 0;
-        }
-        
-        $(slider).slider('values', 0, amount);
-        showHideLocations($(slider).slider('values'));
+        handleUserInputForAmount('#amount_min_input')
+    });
+    
+    $('#amount_min_input').change(function(){
+        handleUserInputForAmount('#amount_min_input')
     });
     
     $('#amount_max_input').keyup(function(){
-        var slider = getCurrentSlider();
-        var amount = parseFloat($('#amount_max_input').val());
-        
-        if (isNaN(amount)) {
-            amount = 0;
-        }
-        
-        $(slider).slider('values', 1, amount);
-        showHideLocations($(slider).slider('values'));
+        handleUserInputForAmount('#amount_max_input');
+    });
+    
+    $('#amount_max_input').change(function(){
+        handleUserInputForAmount('#amount_max_input');
     });
     
     showHideLocations();
+}
+
+function handleUserInputForAmount(inputID)
+{
+    var index = 0;
+    
+    if (inputID == '#amount_max_input') {
+       index = 1;
+    }
+    
+    var slider = getCurrentSlider();
+    
+    
+    
+    //Hande the sepecial case of the date slider.
+    if (slider == '#date_slider') {
+        var amount = $(inputID).val();
+        
+        values = getCurrentDates();
+        
+        var newDate = new Date(amount);
+        
+        //We have to add one day for some reason.
+        newDate = new Date(newDate.getTime() + 86400000);
+        
+        //Make sure it is within bounds.
+        if (newDate > maxDate) {
+            newDate = maxDate;
+        }
+        
+        if (newDate < minDate) {
+            newDate = minDate;
+        }
+        
+        values[index] = newDate;
+        
+        sliderTime = parseInt(minDate.getDate() + ((newDate.getTime() - minDate.getTime())/86400000));
+        
+        //Update the slider
+        $(slider).slider('values', index, sliderTime);
+        
+        //Show and hide locations
+        return showHideLocations(values);
+    }
+    
+    var amount = parseFloat($(inputID).val());
+    
+    if (isNaN(amount) && slider !== '#date_slider') {
+        amount = 0;
+    }
+    
+    $(slider).slider('values', index, amount);
+    showHideLocations($(slider).slider('values'));
 }
 
 function isValidAmount(amount)
