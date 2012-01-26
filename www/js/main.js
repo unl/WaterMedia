@@ -54,7 +54,7 @@ WDN.jQuery(document).ready(function(){
             month = data['media'][url]['mediahub_media_creation_date'].substr(5,2);
             day   = data['media'][url]['mediahub_media_creation_date'].substr(8,2);
             
-            WDN.log(year + "-" + month + "-" + day);
+            //WDN.log(year + "-" + month + "-" + day);
             
             data['media'][url]['date'] = new Date(year, month, day);
             
@@ -69,13 +69,13 @@ WDN.jQuery(document).ready(function(){
             //set max cfs.
             if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
-                WDN.log('maxCFS: ' + maxCFS);
+                //WDN.log('maxCFS: ' + maxCFS);
             }
             
             //set max af.
             if (data['media'][url]['mediahub_water_af'] > maxAF) {
                 maxAF = data['media'][url]['mediahub_water_af'];
-                WDN.log('maxAF: ' + maxAF);
+                //WDN.log('maxAF: ' + maxAF);
             }
             
             //generate the key (group by geo locaiton).
@@ -307,9 +307,9 @@ function showHideForType(type, values)
     }
     
     //Compare
-    WDN.log('Handle AF, date or CFS compare');
+    //WDN.log('Handle AF, date or CFS compare');
     for (key in locations) {
-        WDN.log('type:' + type + ' min:' + extremes[key][type]['min'] + ' max:' + extremes[key][type]['max'] + ' values:' + values);
+        //WDN.log('type:' + type + ' min:' + extremes[key][type]['min'] + ' max:' + extremes[key][type]['max'] + ' values:' + values);
         if (extremes[key][type]['min'] > 0 && extremes[key][type]['min'] >= values[0] && extremes[key][type]['max'] <= values[1]) {
             markers[key].setVisible(true);
         } else {
@@ -437,7 +437,6 @@ function initialize()
         map.setZoom(zoomLevel);
     });
 
-    
     initExtremes();
     
     $("#af_slider").slider({
@@ -475,7 +474,7 @@ function initialize()
             
             values[1] = new Date(minDate.getTime());
             values[1].setDate(values[1].getDate() + ui.values[1]);
-            WDN.log(values);
+            //WDN.log(values);
             showHideLocations(values);
         }
     });
@@ -495,21 +494,21 @@ function initialize()
     $("#date_max").html(formatDate(maxDate));
     
     $('#afTab').click(function(){
-        WDN.log('selector clicked');
+        //WDN.log('selector clicked');
         destroyDatePickers();
         showHideForType('af');
         return false;
     })
     
     $('#cfsTab').click(function(){
-        WDN.log('selector clicked');
+        //WDN.log('selector clicked');
         destroyDatePickers();
         showHideForType('cfs');
         return false;
     })
     
     $('#dateTab').click(function(){
-        WDN.log('selector clicked');
+        //WDN.log('selector clicked');
         createDatePickers();
         showHideForType('date');
         return false;
