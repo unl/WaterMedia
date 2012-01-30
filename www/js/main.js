@@ -602,6 +602,7 @@ function handleUserInputForAmount(inputID)
 function isValidAmount(amount)
 {
    switch(amount){
+   case 48:
    case 49:
    case 50:
    case 51:
