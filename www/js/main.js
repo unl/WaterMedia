@@ -101,6 +101,19 @@ WDN.jQuery(document).ready(function(){
     }, 'json');
 });
 
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+
 function setUpMarkers(map)
 {
     markers   = new Array();
@@ -128,7 +141,7 @@ function setUpMarkers(map)
 
 function setUpInfoBox(map, id)
 {
-    var content = "<div id='infoWindow'>Location: " + id  + "<br />";
+    var content = "<div id='infoWindow'>";
     content += "<table class='infoBoxTable'><tr><td class='media'>Media</td><td class='cfs'>cfs</td><td class='af'>af</td><td class='date'>Date</td></tr>";
     
     for (mediaID in locations[id]) {
@@ -145,7 +158,7 @@ function setUpInfoBox(map, id)
             cfs = locations[id][mediaID]['cfs'];
         }
         
-        content += "<tr><td>" + link + "</td><td>" + cfs + "</td><td>" + af + "</td><td>" + date + "</td></tr>";
+        content += "<tr><td>" + link + "</td><td>" + addCommas(cfs) + "</td><td>" + addCommas(af) + "</td><td>" + date + "</td></tr>";
     }
     
     content += "</table></div>";
