@@ -52,9 +52,7 @@ WDN.jQuery(document).ready(function(){
             month = data['media'][url]['mediahub_media_creation_date'].substr(5,2);
             day   = data['media'][url]['mediahub_media_creation_date'].substr(8,2);
             
-            //WDN.log(year + "-" + month + "-" + day);
-            
-            data['media'][url]['date'] = new Date(year, month, day);
+            data['media'][url]['date'] = new Date(year, month-1, day);
             
             if (maxDate == 0 || data['media'][url]['date'] > maxDate) {
                 maxDate = data['media'][url]['date'];
