@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="ie iem7"><![endif]-->
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7) ]><html class="ie" lang="en"><![endif]-->
+<!--[if !(IEMobile) | !(IE)]><!--><html lang="en"><!-- InstanceBegin template="/Templates/fixed.dwt" codeOutsideHTMLIsLocked="false" --><!--<![endif]-->
+<head>
+<!--#include virtual="/wdn/templates_3.1/includes/metanfavico.html" -->
+<!--
+    Membership and regular participation in the UNL Web Developer Network
+    is required to use the UNL templates. Visit the WDN site at 
+    http://wdn.unl.edu/. Click the WDN Registry link to log in and
+    register your unl.edu site.
+    All UNL template code is the property of the UNL Web Developer Network.
+    The code seen in a source code view is not, and may not be used as, a 
+    template. You may not use this code, a reverse-engineered version of 
+    this code, or its associated visual presentation in whole or in part to
+    create a derivative work.
+    This message may not be removed from any pages based on the UNL site template.
+    
+    $Id: fixed.dwt | ea2608181e2b6604db76106fd982b39218ddcb8b | Fri Mar 9 12:20:43 2012 -0600 | Kevin Abel  $
+-->
+<!--#include virtual="/wdn/templates_3.1/includes/scriptsandstyles.html" -->
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>University of Nebraska-Lincoln | Nebraska Water Center | Water 101</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- Place optional header elements here -->
+<style type="text/css">
+<!--
+.style1 {font-style: italic}
+-->
+</style>
+
+<link rel="stylesheet" type="text/css" href="../css/definitionlist.css" />
+<link rel="stylesheet" type="text/css" href="../css/water101.css" />
+<!-- InstanceEndEditable -->
+<!-- InstanceParam name="class" type="text" value="fixed" -->
+</head>
+<body class="fixed" data-version="3.1">
+    <nav class="skipnav">
+        <a class="skipnav" href="#maincontent">Skip Navigation</a>
+    </nav>
+    <div id="wdn_wrapper">
+        <header id="header" role="banner">
+            <a id="logo" href="http://www.unl.edu/" title="UNL website">UNL</a>
+            <span id="wdn_institution_title">University of Nebraska&ndash;Lincoln</span>
+            <span id="wdn_site_title"><!-- InstanceBeginEditable name="titlegraphic" -->
+            Nebraska Water Center <span>A Part of the Daugherty Water for Food Institute</span>
+            <!-- InstanceEndEditable --></span>
+            <!--#include virtual="/wdn/templates_3.1/includes/idm.html" -->
+            <!--#include virtual="/wdn/templates_3.1/includes/wdnTools.html" -->
+        </header>
+        <div id="wdn_navigation_bar">
+            <nav id="breadcrumbs">
+                <!-- WDN: see glossary item 'breadcrumbs' -->
+                <h3 class="wdn_list_descriptor hidden">Breadcrumbs</h3>
+                <!-- InstanceBeginEditable name="breadcrumbs" -->
+            <ul>
+                <li><a href="http://www.unl.edu/" title="University of Nebraska–Lincoln">UNL</a></li>
+                <li><a href="http://watercenter.unl.edu/" title="Nebraska Water Center">Nebraska Water Center</a></li>
+                <li><a href="../index.shtml" title='Water Media Map'>Water VideoGage</a></li>
+                <li>Water 101</li>
+            </ul>
+            <!-- InstanceEndEditable -->
+            </nav>
+            <div id="wdn_navigation_wrapper">
+                <nav id="navigation" role="navigation">
+                    <h3 class="wdn_list_descriptor hidden">Navigation</h3>
+                    <!-- InstanceBeginEditable name="navlinks" -->
+                <!--#include virtual="sharedcode/navigation.html" -->
+                <!-- InstanceEndEditable -->
+                </nav>
+            </div>
+        </div>
+        <div id="wdn_content_wrapper">
+            <div id="pagetitle">
+                <!-- InstanceBeginEditable name="pagetitle" -->
+                <h1>Water 101</h1>
+                <!-- InstanceEndEditable -->
+            </div>
+            <div id="maincontent" role="main">
+                <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
+                <!-- InstanceBeginEditable name="maincontentarea" -->
+                <div id='waterNav'>
+              <a href='../' title='Back to the map'>Go back to the map</a>
+            </div>
+            <div class="grid9 first">
+            <dl>
+                <dt>How is water measured?</dt>
+                <dd>
+                    <p>The unit of measure for standing water in reservoirs and canals is the <a href="#af">acre-foot</a>.</p>
+                    <p>Flowing water is measured using <a href="#cf">cubic feet</a> per second.</p>
+                </dd>
+                
+                <dt id="cf">What is a cubic foot?</dt>
+                <dd>
+                    <p>A cubic foot is the volume of a cube of water with each side one foot in length.</p>
+                </dd>
+                <dt id="af">What is an acre-foot?</dt>
+                <dd>
+                    <p>An acre-foot is the volume of one acre of surface area to a depth of one foot.
+                        One acre is 66x660 feet, so one acre-foot is exactly 43,560 <a href="#cf">cubic feet</a>.
+                    </p>
+                </dd>
+            </dl>
+            </div>
+            <div class="grid3">
+                <img src="../images/droplet.gif" alt="drawing of a water droplet with eyes" />
+            </div>
+                
+            <!-- InstanceEndEditable -->
+                <div class="clear"></div>
+                <!--#include virtual="/wdn/templates_3.1/includes/noscript.html" -->
+                <!--THIS IS THE END OF THE MAIN CONTENT AREA.-->
+            </div>
+        </div>
+        <footer id="footer">
+            <div id="footer_floater"></div>
+            <div class="footer_col" id="wdn_footer_feedback">
+                <!--#include virtual="/wdn/templates_3.1/includes/feedback.html" -->
+            </div>
+            <div class="footer_col" id="wdn_footer_related">
+                <!-- InstanceBeginEditable name="leftcollinks" -->
+                <!--#include virtual="sharedcode/relatedLinks.html" -->
+                <!-- InstanceEndEditable --></div>
+            <div class="footer_col" id="wdn_footer_contact">
+                <!-- InstanceBeginEditable name="contactinfo" -->
+                <!--#include virtual="sharedcode/footerContactInfo.html" -->
+                <!-- InstanceEndEditable --></div>
+            <div class="footer_col" id="wdn_footer_share">
+                <!--#include virtual="/wdn/templates_3.1/includes/socialmediashare.html" -->
+            </div>
+            <!-- InstanceBeginEditable name="optionalfooter" --> <!-- InstanceEndEditable -->
+            <div id="wdn_copyright">
+                <div>
+                    <!-- InstanceBeginEditable name="footercontent" -->
+                <!--#include virtual="sharedcode/footer.html" -->
+                <!-- InstanceEndEditable -->
+                    <!--#include virtual="/wdn/templates_3.1/includes/wdn.html" -->
+                </div>
+                <!--#include virtual="/wdn/templates_3.1/includes/logos.html" -->
+            </div>
+        </footer>
+    </div>
+</body>
+<!-- InstanceEnd --></html>

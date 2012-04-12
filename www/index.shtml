@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="ie iem7"><![endif]-->
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7) ]><html class="ie" lang="en"><![endif]-->
+<!--[if !(IEMobile) | !(IE)]><!--><html lang="en"><!-- InstanceBegin template="/Templates/fixed.dwt" codeOutsideHTMLIsLocked="false" --><!--<![endif]-->
+<head>
+<!--#include virtual="/wdn/templates_3.1/includes/metanfavico.html" -->
+<!--
+    Membership and regular participation in the UNL Web Developer Network
+    is required to use the UNL templates. Visit the WDN site at 
+    http://wdn.unl.edu/. Click the WDN Registry link to log in and
+    register your unl.edu site.
+    All UNL template code is the property of the UNL Web Developer Network.
+    The code seen in a source code view is not, and may not be used as, a 
+    template. You may not use this code, a reverse-engineered version of 
+    this code, or its associated visual presentation in whole or in part to
+    create a derivative work.
+    This message may not be removed from any pages based on the UNL site template.
+    
+    $Id: fixed.dwt | ea2608181e2b6604db76106fd982b39218ddcb8b | Fri Mar 9 12:20:43 2012 -0600 | Kevin Abel  $
+-->
+<!--#include virtual="/wdn/templates_3.1/includes/scriptsandstyles.html" -->
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>University of Nebraska-Lincoln | Nebraska Water Center | Water VideoGage</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- Place optional header elements here -->
+<style type="text/css">
+<!--
+.style1 {font-style: italic}
+-->
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="http://www.unl.edu/wdn/templates_3.0/scripts/mediaelement.js"></script>
+<script type="text/javascript"  src="js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.unl.edu/wdn/templates_3.0/css/content/mediaelement.css"/>
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<!-- InstanceEndEditable -->
+<!-- InstanceParam name="class" type="text" value="fixed" -->
+</head>
+<body class="fixed" data-version="3.1">
+    <nav class="skipnav">
+        <a class="skipnav" href="#maincontent">Skip Navigation</a>
+    </nav>
+    <div id="wdn_wrapper">
+        <header id="header" role="banner">
+            <a id="logo" href="http://www.unl.edu/" title="UNL website">UNL</a>
+            <span id="wdn_institution_title">University of Nebraska&ndash;Lincoln</span>
+            <span id="wdn_site_title"><!-- InstanceBeginEditable name="titlegraphic" -->
+            Nebraska Water Center <span>A Part of the Daugherty Water for Food Institute</span>
+            <!-- InstanceEndEditable --></span>
+            <!--#include virtual="/wdn/templates_3.1/includes/idm.html" -->
+            <!--#include virtual="/wdn/templates_3.1/includes/wdnTools.html" -->
+        </header>
+        <div id="wdn_navigation_bar">
+            <nav id="breadcrumbs">
+                <!-- WDN: see glossary item 'breadcrumbs' -->
+                <h3 class="wdn_list_descriptor hidden">Breadcrumbs</h3>
+                <!-- InstanceBeginEditable name="breadcrumbs" -->
+            <ul>
+                <li><a href="http://www.unl.edu/" title="University of Nebraska–Lincoln">UNL</a></li>
+                <li><a href="http://watercenter.unl.edu/" title="Nebraska Water Center">Nebraska Water Center</a></li>
+                <li>Water VideoGage</li>
+            </ul>
+            <!-- InstanceEndEditable -->
+            </nav>
+            <div id="wdn_navigation_wrapper">
+                <nav id="navigation" role="navigation">
+                    <h3 class="wdn_list_descriptor hidden">Navigation</h3>
+                    <!-- InstanceBeginEditable name="navlinks" -->
+                <!--#include virtual="sharedcode/navigation.html" -->
+                <!-- InstanceEndEditable -->
+                </nav>
+            </div>
+        </div>
+        <div id="wdn_content_wrapper">
+            <div id="pagetitle">
+                <!-- InstanceBeginEditable name="pagetitle" -->
+                <h1>Water VideoGage</h1>
+                <!-- InstanceEndEditable -->
+            </div>
+            <div id="maincontent" role="main">
+                <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
+                <!-- InstanceBeginEditable name="maincontentarea" -->
+                <div id="mapHeader">
+                <div id='sliderTabs' class='border'>
+                        <h3>Select a Data Type:</h3>
+                        <a href='#cfs_slider_container' id='cfsTab'>Flow</a>
+                        <a href='#af_slider_container' id='afTab'>Volume</a>
+                        <a href='#date_slider_container' id='dateTab'>Date</a>
+                </div>
+                <div id='dataType'>
+                    <span id="display_type"></span>
+                </div>
+                <div id="headLinks">
+                    <a href='water101/'><img src='images/droplet.gif' alt='A water droplet'/> Water 101</a>
+                </div>
+            </div>
+            
+            <br />
+            
+            <div id='map_contents'>
+                <div id='sliders' class='border'>
+                    <div>
+                        <h3>Edit Range:</h3>
+                    </div>
+                    <div id='amounts'>
+                        <div class='amounts'>
+                            Min: <br /> <input type='text' id='amount_min_input' value=''></input>
+                        </div>
+                        <div class='amounts'>
+                            Max: <br /> <input type='text' id='amount_max_input' value=''></input>
+                        </div>
+                    </div>
+                    <div id='slider_container'>
+                        <div id='cfs_slider_container'>
+                            <div class='slider'>
+                                <div style='clear:both'></div>
+                                <span class='water_min' id='cfs_min'>0</span>
+                                <span class='water_med' id='cfs_med'>250</span>
+                                <span class='water_max' id='cfs_max'>500</span>
+                                <div id="cfs_slider"></div>
+                            </div>
+                        </div>
+                        <div id='af_slider_container'>
+                            <div class='slider'>
+                                <span class='water_min' id='af_min'>0</span>
+                                <span class='water_med' id='af_med'>250</span>
+                                <span class='water_max' id='af_max'>500</span>
+                                <div id="af_slider"></div>
+                            </div>
+                        </div>
+                        <div id='date_slider_container'>
+                            <div class='slider'>
+                                <span class='water_min' id='date_min'>0</span>
+                                <span class='water_med' id='date_med'>250</span>
+                                <span class='water_max' id='date_max'>500</span>
+                                <div id="date_slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id='map' class='border'>
+                    <h3>Select and View Media:</h3>
+                    <div id="map_canvas"></div>
+                </div>
+            </div>
+            <div style='clear:both'></div>
+            <hr />
+            <div id='instructions'>
+                <h3>
+                    Instructions:
+                </h3>
+                <ol>
+                    <li>Select whether you wish to screen water media by volume, flow, or by date.</li>
+                    <li>If desired, set maximum or minimum values on the slider.</li>
+                    <li>Select a point on the map to see photos and videos.</li>
+                </ol>
+            </div>
+            <div class='hidden'>
+                <div id='waterMedia'>
+                    <!-- This will be updated with media -->
+                </div>
+            </div>
+            <!-- InstanceEndEditable -->
+                <div class="clear"></div>
+                <!--#include virtual="/wdn/templates_3.1/includes/noscript.html" -->
+                <!--THIS IS THE END OF THE MAIN CONTENT AREA.-->
+            </div>
+        </div>
+        <footer id="footer">
+            <div id="footer_floater"></div>
+            <div class="footer_col" id="wdn_footer_feedback">
+                <!--#include virtual="/wdn/templates_3.1/includes/feedback.html" -->
+            </div>
+            <div class="footer_col" id="wdn_footer_related">
+                <!-- InstanceBeginEditable name="leftcollinks" -->
+                <!--#include virtual="sharedcode/relatedLinks.html" -->
+                <!-- InstanceEndEditable --></div>
+            <div class="footer_col" id="wdn_footer_contact">
+                <!-- InstanceBeginEditable name="contactinfo" -->
+                <!--#include virtual="sharedcode/footerContactInfo.html" -->
+                <!-- InstanceEndEditable --></div>
+            <div class="footer_col" id="wdn_footer_share">
+                <!--#include virtual="/wdn/templates_3.1/includes/socialmediashare.html" -->
+            </div>
+            <!-- InstanceBeginEditable name="optionalfooter" --> <!-- InstanceEndEditable -->
+            <div id="wdn_copyright">
+                <div>
+                    <!-- InstanceBeginEditable name="footercontent" -->
+                <!--#include virtual="sharedcode/footer.html" -->
+                <!-- InstanceEndEditable -->
+                    <!--#include virtual="/wdn/templates_3.1/includes/wdn.html" -->
+                </div>
+                <!--#include virtual="/wdn/templates_3.1/includes/logos.html" -->
+            </div>
+        </footer>
+    </div>
+</body>
+<!-- InstanceEnd --></html>
