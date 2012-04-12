@@ -7,6 +7,10 @@ body { height: 100%; margin: 0; padding: 0 }
     float:right;
 }
 
+#map_canvas img {
+    max-width: none;
+}
+
 #sliders {
     text-align: center;
     width: 150px;
