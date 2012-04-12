@@ -95,7 +95,9 @@ WDN.jQuery(document).ready(function(){
         
         
         //$('#amount_min_input').datepicker();
-        initialize();
+        WDN.initializePlugin('modal', [function() {
+            initialize();
+        }]);
     }, 'json');
 });
 
@@ -170,12 +172,9 @@ function setUpInfoBox(map, id)
         
         WDN.jQuery(".colorBoxElement").click(function(){
            updateMedia(media[this]);
-           
-           WDN.jQuery(".colorBoxElement").colorbox({width:"700px", height:"570px",inline:true, href:"#waterMedia"}, function(){
-               return false;
-           });
+           WDN.jQuery().colorbox({width:"700px", height:"570px",inline:true, href:"#waterMedia"});
+           return false;
         });
-
     });
 }
 
