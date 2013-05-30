@@ -42,7 +42,7 @@ function init()
                 continue;
             }
 
-            //sanatize data
+            //sanitize data
             data['media'][url]['mediahub_water_cfs'] = parseInt(data['media'][url]['mediahub_water_cfs']);
             data['media'][url]['mediahub_water_af'] = parseInt(data['media'][url]['mediahub_water_af']);
 
