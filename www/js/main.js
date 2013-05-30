@@ -10,6 +10,14 @@ var maxCFS       = 0;
 var maxDate      = 0;
 var minDate      = 0;
 
+WDN.loadCSS(WDN.getTemplateFilePath('scripts/plugins/ui/ui.all.css'));
+
+WDN.jQuery(document).ready(function(){
+    WDN.loadJS(WDN.getTemplateFilePath('scripts/plugins/ui/jQuery.ui.js'), function () {
+        init();
+    });
+});
+
 function formatDate(date)
 {
     return date.getFullYear() + "-" + (date.getMonth() + 1)  + "-" + date.getDate();
@@ -20,7 +28,8 @@ function formatNumber(number)
     return $.parseNumber(number, {format:"#,###", locale:"us"});
 }
 
-WDN.jQuery(document).ready(function(){
+function init()
+{
     WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
         media = data['media'];
         for (url in data['media']) {
@@ -28,65 +37,65 @@ WDN.jQuery(document).ready(function(){
             if (data['media'][url]['geo_lat'] == undefined) {
                 continue;
             }
-            
+
             if (data['media'][url]['geo_long'] == undefined) {
                 continue;
             }
-            
+
             //sanatize data
             data['media'][url]['mediahub_water_cfs'] = parseInt(data['media'][url]['mediahub_water_cfs']);
             data['media'][url]['mediahub_water_af'] = parseInt(data['media'][url]['mediahub_water_af']);
-            
+
             //make sure things are formatted well.
             if (data['media'][url]['mediahub_water_cfs'] == undefined) {
                 data['media'][url]['mediahub_water_cfs'] = null;
             }
-            
+
             if (data['media'][url]['mediahub_water_af'] == undefined) {
                 data['media'][url]['mediahub_water_af'] = null;
             }
-            
+
             if (data['media'][url]['mediahub_media_creation_date'] == undefined) {
                 data['media'][url]['mediahub_media_creation_date'] = data['media'][url]['pubDate'];
             }
-            
+
             //Set up the date object;
             var year, month, day;
-            
+
             year  = data['media'][url]['mediahub_media_creation_date'].substr(0,4);
             month = data['media'][url]['mediahub_media_creation_date'].substr(5,2);
             day   = data['media'][url]['mediahub_media_creation_date'].substr(8,2);
-            
+
             data['media'][url]['date'] = new Date(year, month-1, day);
-            
+
             if (maxDate == 0 || data['media'][url]['date'] > maxDate) {
                 maxDate = data['media'][url]['date'];
             }
-            
+
             if (minDate == 0 || data['media'][url]['date'] < minDate) {
                 minDate = data['media'][url]['date'];
             }
-            
+
             //set max cfs.
             if (data['media'][url]['mediahub_water_cfs'] > maxCFS) {
                 maxCFS = data['media'][url]['mediahub_water_cfs'];
                 //WDN.log('maxCFS: ' + maxCFS);
             }
-            
+
             //set max af.
             if (data['media'][url]['mediahub_water_af'] > maxAF) {
                 maxAF = data['media'][url]['mediahub_water_af'];
                 //WDN.log('maxAF: ' + maxAF);
             }
-            
+
             //generate the key (group by geo locaiton).
             var key = data['media'][url]['geo_lat'] + "," + data['media'][url]['geo_long'];
-            
+
             /**Set the location array.**/
             if (locations[key] == undefined) {
                 locations[key] = new Array();
             }
-            
+
             locations[key][data['media'][url]['id']]          = new Array();
             locations[key][data['media'][url]['id']]['url']   = url;
             locations[key][data['media'][url]['id']]['title'] = data['media'][url]['title'];
@@ -97,14 +106,12 @@ WDN.jQuery(document).ready(function(){
             locations[key][data['media'][url]['id']]['date']  = data['media'][url]['date'];
             locations[key][data['media'][url]['id']]['media'] = data['media'][url]['url'];
         }
-        
-        
-        //$('#amount_min_input').datepicker();
+
         WDN.initializePlugin('modal', [function() {
             initialize();
         }]);
-    }, 'json');
-});
+    }, 'json'); 
+}
 
 function addCommas(nStr)
 {
@@ -286,9 +293,9 @@ function initExtremes()
 
 function showHideLocations(values)
 {
-    if ($('#cfs_slider_container').is(':visible')) {
+    if (WDN.jQuery('#cfs_slider_container').is(':visible')) {
         showHideForType('cfs', values);
-    } else if ($('#af_slider_container').is(':visible')) {
+    } else if (WDN.jQuery('#af_slider_container').is(':visible')) {
         showHideForType('af', values);
     } else {
         showHideForType('date', values);
@@ -307,11 +314,11 @@ function showHideForType(type, values)
         var values;
         
         if (type == 'cfs') {
-            values = $("#cfs_slider").slider("values");
+            values = WDN.jQuery("#cfs_slider").slider("values");
         }
         
         if (type == 'af') {
-            values = $("#af_slider").slider("values");
+            values = WDN.jQuery("#af_slider").slider("values");
         }
         
         if (type == 'date') {
@@ -339,21 +346,21 @@ function showHideForType(type, values)
     switch (type) {
         case 'af':
             name = "Volume (af)";
-            $("#cfs_slider_container").hide();
-            $("#af_slider_container").show();
-            $("#date_slider_container").hide();
+            WDN.jQuery("#cfs_slider_container").hide();
+            WDN.jQuery("#af_slider_container").show();
+            WDN.jQuery("#date_slider_container").hide();
             break;
         case 'cfs':
             name = "Flow (cfs)";
-            $("#cfs_slider_container").show();
-            $("#af_slider_container").hide();
-            $("#date_slider_container").hide();
+            WDN.jQuery("#cfs_slider_container").show();
+            WDN.jQuery("#af_slider_container").hide();
+            WDN.jQuery("#date_slider_container").hide();
             break;
         case 'date':
             name = "Date";
-            $("#cfs_slider_container").hide();
-            $("#af_slider_container").hide();
-            $("#date_slider_container").show();
+            WDN.jQuery("#cfs_slider_container").hide();
+            WDN.jQuery("#af_slider_container").hide();
+            WDN.jQuery("#date_slider_container").show();
             break;
     }
     
@@ -366,16 +373,16 @@ function showHideForType(type, values)
         values[1] = formatDate(values[1]); 
     }
     
-    $("#amount_min_input").val(values[0]);
-    $("#amount_max_input").val(values[1]);
-    $("#display_type").html(name);
+    WDN.jQuery("#amount_min_input").val(values[0]);
+    WDN.jQuery("#amount_max_input").val(values[1]);
+    WDN.jQuery("#display_type").html(name);
 }
 
 function getCurrentSlider()
 {
-    if ($('#cfs_slider_container').is(':visible')) {
+    if (WDN.jQuery('#cfs_slider_container').is(':visible')) {
         return '#cfs_slider';
-    } else if ($('#af_slider_container').is(':visible')) {
+    } else if (WDN.jQuery('#af_slider_container').is(':visible')) {
         return '#af_slider';
     } else {
         return '#date_slider';
@@ -384,12 +391,12 @@ function getCurrentSlider()
 
 function destroyDatePickers()
 {
-    if ($('#amount_min_input').hasClass('hasDatepicker') == true) {
-        $('#amount_min_input').datepicker("destroy");
+    if (WDN.jQuery('#amount_min_input').hasClass('hasDatepicker') == true) {
+        WDN.jQuery('#amount_min_input').datepicker("destroy");
     }
     
-    if ($('#amount_max_input').hasClass('hasDatepicker') == true) {
-        $('#amount_max_input').datepicker("destroy");
+    if (WDN.jQuery('#amount_max_input').hasClass('hasDatepicker') == true) {
+        WDN.jQuery('#amount_max_input').datepicker("destroy");
     }
 }
 
@@ -400,18 +407,18 @@ function createDatePickers()
                    'changeYear': true,
                    'maxDate': formatDate(maxDate),
                    'minDate': formatDate(minDate)}
-    if ($('#amount_min_input').hasClass('hasDatepicker') == false) {
-        $('#amount_min_input').datepicker(options);
+    if (WDN.jQuery('#amount_min_input').hasClass('hasDatepicker') == false) {
+        WDN.jQuery('#amount_min_input').datepicker(options);
     }
     
-    if ($('#amount_max_input').hasClass('hasDatepicker') == false) {
-        $('#amount_max_input').datepicker(options);
+    if (WDN.jQuery('#amount_max_input').hasClass('hasDatepicker') == false) {
+        WDN.jQuery('#amount_max_input').datepicker(options);
     }
 }
 
 function getCurrentDates()
 {
-    ui_values = $('#date_slider').slider('values');
+    ui_values = WDN.jQuery('#date_slider').slider('values');
     values = new Array();
     values[0] = new Date(minDate.getTime());
     values[0].setDate(values[0].getDate() + ui_values[0]);
@@ -459,7 +466,7 @@ function initialize()
 
     initExtremes();
     
-    $("#af_slider").slider({
+    WDN.jQuery("#af_slider").slider({
         range: true,
         orientation: "vertical",
         values: [0, maxAF],
@@ -470,7 +477,7 @@ function initialize()
         }
     });
     
-    $("#cfs_slider").slider({
+    WDN.jQuery("#cfs_slider").slider({
         range: true,
         orientation: "vertical",
         values: [0, maxCFS],
@@ -481,7 +488,7 @@ function initialize()
         }
     });
     
-    $("#date_slider").slider({
+    WDN.jQuery("#date_slider").slider({
         range: true,
         orientation: "vertical",
         values: [0, maxDate],
@@ -500,41 +507,41 @@ function initialize()
     });
     
     //Set min, med and max for slider lables.
-    $("#af_min").html(0);
-    $("#af_med").html(maxAF/2);
-    $("#af_max").html(maxAF);
+    WDN.jQuery("#af_min").html(0);
+    WDN.jQuery("#af_med").html(maxAF/2);
+    WDN.jQuery("#af_max").html(maxAF);
     
-    $("#cfs_min").html(0);
-    $("#cfs_med").html(maxCFS/2);
-    $("#cfs_max").html(maxCFS);
+    WDN.jQuery("#cfs_min").html(0);
+    WDN.jQuery("#cfs_med").html(maxCFS/2);
+    WDN.jQuery("#cfs_max").html(maxCFS);
     
-    $("#date_min").html(formatDate(minDate));
+    WDN.jQuery("#date_min").html(formatDate(minDate));
     var date = new Date(Math.floor(minDate.getTime() + ((maxDate.getTime() - minDate.getTime()) / 2)));
-    $("#date_med").html(formatDate(date));
-    $("#date_max").html(formatDate(maxDate));
+    WDN.jQuery("#date_med").html(formatDate(date));
+    WDN.jQuery("#date_max").html(formatDate(maxDate));
     
-    $('#afTab').click(function(){
+    WDN.jQuery('#afTab').click(function(){
         //WDN.log('selector clicked');
         destroyDatePickers();
         showHideForType('af');
         return false;
     })
     
-    $('#cfsTab').click(function(){
+    WDN.jQuery('#cfsTab').click(function(){
         //WDN.log('selector clicked');
         destroyDatePickers();
         showHideForType('cfs');
         return false;
     })
     
-    $('#dateTab').click(function(){
+    WDN.jQuery('#dateTab').click(function(){
         //WDN.log('selector clicked');
         createDatePickers();
         showHideForType('date');
         return false;
     })
     
-    $('#amount_min_input, #amount_max_input').keydown(function(event){
+    WDN.jQuery('#amount_min_input, #amount_max_input').keydown(function(event){
        if (isValidAmount(event.which)) {
            return true;
        }
@@ -542,19 +549,19 @@ function initialize()
        return false;
     });
     
-    $('#amount_min_input').keyup(function(){
+    WDN.jQuery('#amount_min_input').keyup(function(){
         handleUserInputForAmount('#amount_min_input')
     });
     
-    $('#amount_min_input').change(function(){
+    WDN.jQuery('#amount_min_input').change(function(){
         handleUserInputForAmount('#amount_min_input')
     });
     
-    $('#amount_max_input').keyup(function(){
+    WDN.jQuery('#amount_max_input').keyup(function(){
         handleUserInputForAmount('#amount_max_input');
     });
     
-    $('#amount_max_input').change(function(){
+    WDN.jQuery('#amount_max_input').change(function(){
         handleUserInputForAmount('#amount_max_input');
     });
     
@@ -575,7 +582,7 @@ function handleUserInputForAmount(inputID)
     
     //Hande the sepecial case of the date slider.
     if (slider == '#date_slider') {
-        var amount = $(inputID).val();
+        var amount = WDN.jQuery(inputID).val();
         
         values = getCurrentDates();
         
@@ -598,20 +605,20 @@ function handleUserInputForAmount(inputID)
         sliderTime = parseInt(minDate.getDate() + ((newDate.getTime() - minDate.getTime())/86400000));
         
         //Update the slider
-        $(slider).slider('values', index, sliderTime);
+        WDN.jQuery(slider).slider('values', index, sliderTime);
         
         //Show and hide locations
         return showHideLocations(values);
     }
     
-    var amount = parseFloat($(inputID).val());
+    var amount = parseFloat(WDN.jQuery(inputID).val());
     
     if (isNaN(amount) && slider !== '#date_slider') {
         amount = 0;
     }
     
-    $(slider).slider('values', index, amount);
-    showHideLocations($(slider).slider('values'));
+    WDN.jQuery(slider).slider('values', index, amount);
+    showHideLocations(WDN.jQuery(slider).slider('values'));
 }
 
 function isValidAmount(amount)

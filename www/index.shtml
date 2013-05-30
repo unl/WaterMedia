@@ -33,13 +33,10 @@
 -->
 </style>
 
-<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.numberformatter.min.js"></script>
 <script type="text/javascript" src="http://www.unl.edu/wdn/templates_3.0/scripts/mediaelement.js"></script>
 <script type="text/javascript"  src="js/main.js"></script>
-<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="http://www.unl.edu/wdn/templates_3.0/css/content/mediaelement.css"/>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <!-- InstanceEndEditable -->
