@@ -166,7 +166,7 @@ function setUpInfoBox(map, id)
     content += "</table></div>";
     
     infoBoxes[id] = new google.maps.InfoWindow({
-        content: content,
+        content: content
     });
 
     google.maps.event.addListener(markers[id], 'click', function() {
