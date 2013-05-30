@@ -112,10 +112,11 @@
                     </div>
                     <div id='amounts'>
                         <div class='amounts'>
-                            Min: <br /> <input type='text' id='amount_min_input' value='' />
+                            <label for="amount_min_input">Min:</label><br />
+                            <input type='text' id='amount_min_input' value='' />
                         </div>
                         <div class='amounts'>
-                            Max: <br /> <input type='text' id='amount_max_input' value='' />
+                            <label for="amount_max_input">Max:</label><br /><input type='text' id='amount_max_input' value='' />
                         </div>
                     </div>
                     <div id='slider_container'>
