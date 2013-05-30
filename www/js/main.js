@@ -111,7 +111,7 @@ function init()
         }
 
         WDN.initializePlugin('modal', [function() {
-            initialize();
+            start();
         }]);
     }, 'json'); 
 }
@@ -419,7 +419,7 @@ function getCurrentDates()
     return values;
 }
 
-function initialize()
+function start()
 {
     var latlng = new google.maps.LatLng(41.6,-99.75);
     var options = {
