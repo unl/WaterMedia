@@ -15,6 +15,11 @@ function formatDate(date)
     return date.getFullYear() + "-" + (date.getMonth() + 1)  + "-" + date.getDate();
 }
 
+function formatNumber(number)
+{
+    return $.parseNumber(number, {format:"#,###", locale:"us"});
+}
+
 WDN.jQuery(document).ready(function(){
     WDN.get('http://mediahub.unl.edu/channels/319?format=json', function(data){
         media = data['media'];
