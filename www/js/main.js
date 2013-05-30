@@ -502,12 +502,12 @@ function start()
     
     //Set min, med and max for slider lables.
     WDN.jQuery("#af_min").html(0);
-    WDN.jQuery("#af_med").html(maxAF/2);
-    WDN.jQuery("#af_max").html(maxAF);
+    WDN.jQuery("#af_med").html(formatNumber(maxAF/2));
+    WDN.jQuery("#af_max").html(formatNumber(maxAF));
     
     WDN.jQuery("#cfs_min").html(0);
-    WDN.jQuery("#cfs_med").html(maxCFS/2);
-    WDN.jQuery("#cfs_max").html(maxCFS);
+    WDN.jQuery("#cfs_med").html(formatNumber(maxCFS/2));
+    WDN.jQuery("#cfs_max").html(formatNumber(maxCFS));
     
     WDN.jQuery("#date_min").html(formatDate(minDate));
     var date = new Date(Math.floor(minDate.getTime() + ((maxDate.getTime() - minDate.getTime()) / 2)));
