@@ -170,6 +170,10 @@ function setUpInfoBox(map, id)
     });
 
     google.maps.event.addListener(markers[id], 'click', function() {
+        for (i in infoBoxes) {
+            infoBoxes[i].close();
+        }
+        
         infoBoxes[id].open(map, markers[id]);
         
         WDN.jQuery(".colorBoxElement").click(function(){
