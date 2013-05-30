@@ -25,7 +25,7 @@ function formatDate(date)
 
 function formatNumber(number)
 {
-    return $.parseNumber(number, {format:"#,###", locale:"us"});
+    return WDN.jQuery.formatNumber(number, {format:"#,###", locale:"us"});
 }
 
 function init()
@@ -47,11 +47,14 @@ function init()
             data['media'][url]['mediahub_water_af'] = parseInt(data['media'][url]['mediahub_water_af']);
 
             //make sure things are formatted well.
-            if (data['media'][url]['mediahub_water_cfs'] == undefined) {
+            if (data['media'][url]['mediahub_water_cfs'] == undefined
+                || isNaN(data['media'][url]['mediahub_water_cfs'])) {
                 data['media'][url]['mediahub_water_cfs'] = null;
             }
 
-            if (data['media'][url]['mediahub_water_af'] == undefined) {
+            
+            if (data['media'][url]['mediahub_water_af'] == undefined
+                || isNaN(data['media'][url]['mediahub_water_af'])) {
                 data['media'][url]['mediahub_water_af'] = null;
             }
 
@@ -113,19 +116,6 @@ function init()
     }, 'json'); 
 }
 
-function addCommas(nStr)
-{
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-    return x1 + x2;
-}
-
 function setUpMarkers(map)
 {
     markers   = new Array();
@@ -170,7 +160,7 @@ function setUpInfoBox(map, id)
             cfs = locations[id][mediaID]['cfs'];
         }
         
-        content += "<tr><td>" + link + "</td><td>" + addCommas(cfs) + "</td><td>" + addCommas(af) + "</td><td>" + date + "</td></tr>";
+        content += "<tr><td>" + link + "</td><td>" + formatNumber(cfs) + "</td><td>" + formatNumber(af) + "</td><td>" + date + "</td></tr>";
     }
     
     content += "</table></div>";
