@@ -34,6 +34,7 @@
 </style>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="js/hashtable.js"></script>
 <script type="text/javascript" src="js/jquery.numberformatter.min.js"></script>
 <script type="text/javascript" src="http://www.unl.edu/wdn/templates_3.0/scripts/mediaelement.js"></script>
 <script type="text/javascript"  src="js/main.js"></script>
