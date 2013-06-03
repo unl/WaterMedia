@@ -569,7 +569,12 @@ function start()
     
     showHideLocations();
 
-    WDN.jQuery('body').chardinJs('start');
+    if (sessionStorage) {
+        if (!sessionStorage.getItem('visited')) {
+            WDN.jQuery('body').chardinJs('start');
+            sessionStorage.setItem('visited', true);
+        }
+    }
     
     WDN.jQuery('#toggle_instructions').click(function() {
         WDN.jQuery('body').chardinJs('toggle');
