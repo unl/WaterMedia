@@ -343,18 +343,26 @@ function showHideForType(type, values)
             WDN.jQuery("#cfs_slider_container").hide();
             WDN.jQuery("#af_slider_container").show();
             WDN.jQuery("#date_slider_container").hide();
+            WDN.jQuery("#cfsTab").removeClass("selected");
+            WDN.jQuery("#dateTab").removeClass("selected");
+            WDN.jQuery("#afTab").addClass("selected");
             break;
         case 'cfs':
             name = "Flow (cfs)";
             WDN.jQuery("#cfs_slider_container").show();
             WDN.jQuery("#af_slider_container").hide();
             WDN.jQuery("#date_slider_container").hide();
+            WDN.jQuery("#cfsTab").addClass("selected");
+            WDN.jQuery("#dateTab").removeClass("selected");
+            WDN.jQuery("#afTab").removeClass("selected");
             break;
         case 'date':
             name = "Date";
             WDN.jQuery("#cfs_slider_container").hide();
             WDN.jQuery("#af_slider_container").hide();
-            WDN.jQuery("#date_slider_container").show();
+            WDN.jQuery("#cfsTab").removeClass("selected");
+            WDN.jQuery("#dateTab").addClass("selected");
+            WDN.jQuery("#afTab").removeClass("selected");
             break;
     }
     

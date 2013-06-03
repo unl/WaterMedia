@@ -92,9 +92,9 @@
                 <div id="mapHeader">
                 <div id='sliderTabs' class='border' data-intro="Step 1: Select whether you wish to screen water media by volume, flow, or by date." data-position="top">
                         <h3>Select a Data Type:</h3>
-                        <a href='#cfs_slider_container' id='cfsTab'>Flow</a>
-                        <a href='#af_slider_container' id='afTab'>Volume</a>
-                        <a href='#date_slider_container' id='dateTab'>Date</a>
+                        <a href='#cfs_slider_container' id='cfsTab' class='button'>Flow (cfs)</a>
+                        <a href='#af_slider_container' id='afTab' class='button'>Volume (af)</a>
+                        <a href='#date_slider_container' id='dateTab' class='button'>Date</a>
                 </div>
                 <div id='dataType'>
                     <span id="display_type"></span>
