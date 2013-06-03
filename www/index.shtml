@@ -37,9 +37,11 @@
     <script type="text/javascript" src="js/hashtable.js"></script>
 <script type="text/javascript" src="js/jquery.numberformatter.min.js"></script>
 <script type="text/javascript" src="http://www.unl.edu/wdn/templates_3.0/scripts/mediaelement.js"></script>
+<script type="text/javascript"  src="js/chardinjs.min.js"></script>
 <script type="text/javascript"  src="js/main.js"></script>
 <link rel="stylesheet" type="text/css" href="http://www.unl.edu/wdn/templates_3.0/css/content/mediaelement.css"/>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/chardinjs.css" />
 <!-- InstanceEndEditable -->
 <!-- InstanceParam name="class" type="text" value="fixed" -->
 </head>
@@ -88,7 +90,7 @@
                 <!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
                 <!-- InstanceBeginEditable name="maincontentarea" -->
                 <div id="mapHeader">
-                <div id='sliderTabs' class='border'>
+                <div id='sliderTabs' class='border' data-intro="Step 1: Select whether you wish to screen water media by volume, flow, or by date." data-position="top">
                         <h3>Select a Data Type:</h3>
                         <a href='#cfs_slider_container' id='cfsTab'>Flow</a>
                         <a href='#af_slider_container' id='afTab'>Volume</a>
@@ -98,14 +100,14 @@
                     <span id="display_type"></span>
                 </div>
                 <div id="headLinks">
-                    <a href='water101/'><img src='images/droplet.gif' alt='A water droplet'/> Water 101</a>
+                    <a href='water101/' data-intro="Learn More!" data-position="top" ><img src='images/droplet.gif' alt='A water droplet'/> Water 101</a>
                 </div>
             </div>
             
             <br />
             
             <div id='map_contents'>
-                <div id='sliders' class='border'>
+                <div id='sliders' class='border' data-intro="Step 2: If desired, set maximum or minimum values on the slider." data-position="right">
                     <div>
                         <h3>Edit Range:</h3>
                     </div>
@@ -146,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <div id='map' class='border'>
+                <div id='map' class='border' data-intro="Step 3: Select a point on the map to see photos and videos." data-position="bottom">
                     <h3>Select and View Media:</h3>
                     <div id="map_canvas"></div>
                 </div>

@@ -560,6 +560,8 @@ function start()
     });
     
     showHideLocations();
+
+    WDN.jQuery('body').chardinJs('start');
 }
 
 function handleUserInputForAmount(inputID)
