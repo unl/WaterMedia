@@ -100,6 +100,7 @@
                     <span id="display_type"></span>
                 </div>
                 <div id="headLinks">
+                    <a href='#' id='toggle_instructions' class='button chardinjs-show-element'>Instructions</a>
                     <a href='water101/' data-intro="Learn More!" data-position="top" ><img src='images/droplet.gif' alt='A water droplet'/> Water 101</a>
                 </div>
             </div>
@@ -148,23 +149,12 @@
                         </div>
                     </div>
                 </div>
-                <div id='map' class='border' data-intro="Step 3: Select a point on the map to see photos and videos." data-position="bottom">
+                <div id='map' class='border' data-intro="Step 3: Select a point on the map to see photos and videos." data-position="top">
                     <h3>Select and View Media:</h3>
                     <div id="map_canvas"></div>
                 </div>
             </div>
             <div style='clear:both'></div>
-            <hr />
-            <div id='instructions'>
-                <h3>
-                    Instructions:
-                </h3>
-                <ol>
-                    <li>Select whether you wish to screen water media by volume, flow, or by date.</li>
-                    <li>If desired, set maximum or minimum values on the slider.</li>
-                    <li>Select a point on the map to see photos and videos.</li>
-                </ol>
-            </div>
             <div class='hidden'>
                 <div id='waterMedia'>
                     <!-- This will be updated with media -->

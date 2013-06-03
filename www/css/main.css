@@ -89,7 +89,7 @@ body { height: 100%; margin: 0; padding: 0 }
 #dataType {
     float: left;
     text-align: center;
-    width: 500px;
+    width: 400px;
     margin-top:10px;
 }
 
@@ -175,4 +175,10 @@ body { height: 100%; margin: 0; padding: 0 }
 
 #ui-datepicker-div {
     z-index: 3 !important;
+}
+
+#maincontent .button {
+    padding: 10px 15px;
+    background: #4479BA;
+    color: #FFF;
 }

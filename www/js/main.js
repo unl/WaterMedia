@@ -562,6 +562,11 @@ function start()
     showHideLocations();
 
     WDN.jQuery('body').chardinJs('start');
+    
+    WDN.jQuery('#toggle_instructions').click(function() {
+        WDN.jQuery('body').chardinJs('toggle');
+        return false;
+    });
 }
 
 function handleUserInputForAmount(inputID)
