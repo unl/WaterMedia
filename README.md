@@ -5,7 +5,7 @@
 * Mediahub Developer Docs: http://mediahub.unl.edu/developers
 
 ### Deployment
-Because this project is purly js and html, deployment is pretty darn easy.  All you have to do is put it in a directory on the live server.
+Because this project is purely js and html, deployment is pretty darn easy.  All you have to do is put it in a directory on the live server.
 
 ### Contacts
 * Current Developer: Craig Eiting
